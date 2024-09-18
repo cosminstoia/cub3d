@@ -18,6 +18,8 @@ OBJ_DIR		= obj
 
 # Source files
 SRCS		=	$(SRC_DIR)/main.c \
+				$(SRC_DIR)/draw_minimap.c \
+				$(SRC_DIR)/move_player.c
 
 # Objects
 OBJS		= $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
