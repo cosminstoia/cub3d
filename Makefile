@@ -19,6 +19,7 @@ OBJ_DIR		= obj
 # Source files
 SRCS		=	$(SRC_DIR)/main.c \
 				$(SRC_DIR)/draw_minimap.c \
+				$(SRC_DIR)/lines.c \
 				$(SRC_DIR)/move_player.c
 
 # Objects
