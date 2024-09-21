@@ -6,7 +6,7 @@
 /*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:44:25 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/19 16:22:28 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/09/21 14:46:09 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ typedef struct s_map
 	int				width;
 	int				height;
 	int				scale;
+	int				width_pix;
+	int				height_pix;
 } t_map;
 
 typedef struct s_player
@@ -66,6 +68,7 @@ void		ft_draw_map(t_cub3d *cub3d, t_map *map);
 void		ft_print_block(t_cub3d *cub3d, int arr_x, int arr_y, u_int32_t colour);
 void		ft_draw_player(t_cub3d *cub3d, t_player *player, int scale);
 void		ft_draw_ray(t_cub3d *cub3d, t_player *player, int scale);
+float		ft_ray_vert(t_cub3d *cub3d, t_player *player, float vert_len, int scale);
 
 // move_player.c
 void		ft_move_player(void* param);

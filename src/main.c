@@ -6,7 +6,7 @@
 /*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:56:56 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/18 12:14:04 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/09/19 17:18:07 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int	make_map(t_map *map)
 	map->scale = 100;//TEMP: need to figure out a way to scale it correctly to fit in the top corner
 	map->width = 7;//TEMP: need to calculate this from the parsing
 	map->height = 6;//TEMP: need to calculate this from the parsing
+	map->width_pix = map->width * map->scale;
+	map->height_pix = map->height * map->scale;
 	map->m_arr = malloc(map->height * sizeof(int *));
 	if (!map->m_arr)
 		return(-1);
