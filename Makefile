@@ -24,7 +24,8 @@ SRCS		=	$(SRC_DIR)/main.c \
 				$(SRC_DIR)/lines.c \
 				$(SRC_DIR)/move_player.c \
 				$(SRC_DIR)/read_map.c \
-				$(SRC_DIR)/check_map.c 
+				$(SRC_DIR)/check_map.c \
+				$(SRC_DIR)/raycasting.c 
 
 # Objects
 OBJS		= $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
