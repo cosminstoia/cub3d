@@ -6,11 +6,13 @@
 /*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:56:56 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/19 17:18:07 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/09/22 14:12:34 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+//comment added so we can remerge to the master
 
 int TEMP_copy_map_array(t_map *map)
 {
