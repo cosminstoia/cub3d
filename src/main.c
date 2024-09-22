@@ -6,11 +6,13 @@
 /*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:56:56 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/18 11:27:46 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/09/22 14:12:34 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+//comment added so we can remerge to the master
 
 int TEMP_copy_map_array(t_map *map)
 {
@@ -38,6 +40,8 @@ int	make_map(t_map *map)
 	map->scale = 100;//TEMP: need to figure out a way to scale it correctly to fit in the top corner
 	map->width = 7;//TEMP: need to calculate this from the parsing
 	map->height = 6;//TEMP: need to calculate this from the parsing
+	map->width_pix = map->width * map->scale;
+	map->height_pix = map->height * map->scale;
 	map->m_arr = malloc(map->height * sizeof(int *));
 	if (!map->m_arr)
 		return(-1);
@@ -61,7 +65,7 @@ void ft_make_player(t_cub3d *cub3d, t_player *player, int scale)
 	player->pos_y = 4;//TEMP: need to calculate this from the parsing
 	player->dx = 0;//TEMP: need to calculate this from the parsing
 	player->dy = -0.05;//TEMP: assumes facing north need to calculate this from the parsing
-	player->p_angle = PI * 1.5;//TEMP: need to calculate this from the parsing (1.5 * PI is north)
+	player->angle = PI * 1.5;//TEMP: need to calculate this from the parsing (1.5 * PI is north)
 	ft_draw_player(cub3d, player, scale);
 }
 
@@ -104,7 +108,6 @@ int main(void)
 	mlx_image_to_window(cub3d->mlx, cub3d->map_img, 20, 20);
 	make_map(cub3d->map);
 	ft_make_player(cub3d, cub3d->player, cub3d->map->scale);
-	ft_draw_map(cub3d, cub3d->map);
 
 	mlx_loop_hook(cub3d->mlx, ft_move_player, cub3d);
 	mlx_loop(cub3d->mlx);
