@@ -6,7 +6,7 @@
 /*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:18:25 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/21 14:49:53 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/09/22 15:35:28 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_draw_map(t_cub3d *cub3d, t_map *map)
 		arr_x = 0;
 		while (arr_x < map->width)
 		{
-			if (map->m_arr[arr_y][arr_x] == 1)
+			if (map->m_arr[arr_y][arr_x] == '1')
 				ft_print_block(cub3d, arr_x, arr_y, 0xFFFFFFFF);
 			else
 				ft_print_block(cub3d, arr_x, arr_y, 0x000000FF);
@@ -68,10 +68,10 @@ void	ft_draw_player(t_cub3d *cub3d, t_player *player, int scale)
 		y = 0;
 		while (y < 4)
 		{
-			mlx_put_pixel(cub3d->map_img, x + (player->pos_x * scale) -2, y + (player->pos_y * scale) -2, 0x00FF00FF);
+			mlx_put_pixel(cub3d->map_img, x + (player->pos_x * scale) -2, y + (player->pos_y * scale) -2, 0x00FF00FF);	
 			y++;
 		}
-		x++;		
+		x++;	
 	}
 }
 
@@ -112,9 +112,8 @@ float	ft_ray_vert(t_cub3d *cub3d, t_player *player, float vert_len, int scale)
 	dy = tan(player->angle) * dx;
 	end_y = player->pos_y + dy;
 
-	while (end_x >= 0 && end_x <= cub3d->map->width && end_y >= 0 && end_y <= cub3d->map->height && cub3d->map->m_arr[(int)(end_y)][(int)end_x] != 1)
+	while (end_x >= 0 && end_x <= cub3d->map->width && end_y >= 0 && end_y <= cub3d->map->height && cub3d->map->m_arr[(int)(end_y)][(int)end_x] != '1')
 	{
-		// printf(" angle = %f, end_x = %f, end_y = %f, dx = %f, dy = %f\n", player->angle, end_x, end_y, dx, dy);
 		dx += step;
 		end_x += step;
 		dy = tan(player->angle) * dx;

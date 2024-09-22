@@ -6,7 +6,7 @@
 /*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:44:25 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/21 14:46:09 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/09/22 15:25:45 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@
 # include <math.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <fcntl.h>
 # include "../MLX42/include/MLX42/MLX42.h"
+# include "../libft/libft.h"
 
 # define PI 3.141592654
-
-# include <string.h>//remove this (needed for memcpy) -----------------------------------------------------------------------------
 
 typedef struct s_map
 {
 
-	int				**m_arr;
+	char			**m_arr;
 	int				width;
 	int				height;
 	int				scale;
@@ -36,6 +36,7 @@ typedef struct s_map
 
 typedef struct s_player
 {
+	int 			p_flag;
 	mlx_image_t		*p_img;
 	double			pos_x;
 	double			pos_y;
@@ -79,5 +80,12 @@ void		ft_draw_line(t_cub3d *cub3d, int start_x, int start_y, int end_x, int end_
 t_line_pts	ft_init_line(int start_x, int start_y, int end_x, int end_y);
 void		ft_x_greater(t_line_pts line, t_cub3d *cub3d, int step_x, int step_y);
 void		ft_y_greater(t_line_pts line, t_cub3d *cub3d, int step_x, int step_y);
+
+// read_map.c
+int			read_map(char *input, t_map *map);
+
+// check_map.c
+int			validate_map(t_cub3d *cub3d);
+
 
 #endif
