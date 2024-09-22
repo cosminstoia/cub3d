@@ -6,7 +6,7 @@
 /*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:18:25 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/19 16:19:41 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/09/22 15:35:28 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_draw_map(t_cub3d *cub3d, t_map *map)
 		arr_x = 0;
 		while (arr_x < map->width)
 		{
-			if (map->m_arr[arr_y][arr_x] == 1)
+			if (map->m_arr[arr_y][arr_x] == '1')
 				ft_print_block(cub3d, arr_x, arr_y, 0xFFFFFFFF);
 			else
 				ft_print_block(cub3d, arr_x, arr_y, 0x000000FF);
@@ -68,45 +68,79 @@ void	ft_draw_player(t_cub3d *cub3d, t_player *player, int scale)
 		y = 0;
 		while (y < 4)
 		{
-			mlx_put_pixel(cub3d->map_img, x + (player->pos_x * scale) -2, y + (player->pos_y * scale) -2, 0x00FF00FF);
+			mlx_put_pixel(cub3d->map_img, x + (player->pos_x * scale) -2, y + (player->pos_y * scale) -2, 0x00FF00FF);	
 			y++;
 		}
-		x++;		
+		x++;	
 	}
 }
 
 void	ft_draw_ray(t_cub3d *cub3d, t_player *player, int scale)
 {
-	float	first_dx;
-	float	first_dy;
-	float	first_x;
-	float	first_y;
+	float vert_len;
+	// float horiz_len;
 
+	vert_len = 0;
+	vert_len = ft_ray_vert(cub3d, player, vert_len, scale);
+
+	// horiz_len = 0;
+	// horiz_len = ft_ray_horiz(cub3d, cub3d->player, vert_len, scale);
+	// if (vert_len > horiz_len)
+
+}
+
+float	ft_ray_vert(t_cub3d *cub3d, t_player *player, float vert_len, int scale)
+{
+	float	dx;
+	float	dy;
+	float	end_x;
+	float	end_y;
+	float	step;
 	if (player->angle < 1.5 * PI && player->angle > 0.5 * PI)
 	{
-		first_x = floor(player->pos_x);
-		first_dx = first_x - player->pos_x;
+		end_x = floor(player->pos_x) - 0.001;
+		dx = end_x - player->pos_x;
+		step = -1;
 	}
 	else
 	{
-		first_x = ceil(player->pos_x);
-		first_dx = player->pos_x - first_x;
+		end_x = ceil(player->pos_x) + 0.001;
+		dx = end_x - player->pos_x;
+		step = 1;
 	}
 	
-	first_dy = -tan(player->angle) * first_dx;
-	if (player->angle < 1.5 * PI && player->angle > 0.5 * PI)
-		first_dy *= -1;
-	first_y = player->pos_y + first_dy;
-	
-	printf("           first_x = %f, first_y = %f\n", first_x, first_y);
+	dy = tan(player->angle) * dx;
+	end_y = player->pos_y + dy;
 
-	if (first_x >= 0 && first_x < cub3d->map->width && first_y >= 0 && first_y < cub3d->map->height)
+	while (end_x >= 0 && end_x <= cub3d->map->width && end_y >= 0 && end_y <= cub3d->map->height && cub3d->map->m_arr[(int)(end_y)][(int)end_x] != '1')
+	{
+		dx += step;
+		end_x += step;
+		dy = tan(player->angle) * dx;
+		end_y = player->pos_y + dy;
+	}
+	
+	if (step == -1)
+	{
+		dx += 0.002;
+		end_x += 0.002;
+	}
+	else
+	{
+		dx -= 0.002;
+		end_x -= 0.002;
+	}
+	dy = tan(player->angle) * dx;
+	end_y = player->pos_y + dy;
+	
+	if (end_x >= 0 && end_x <= cub3d->map->width && end_y >= 0 && end_y <= cub3d->map->height)
 	{		
-		mlx_put_pixel(cub3d->map_img, (first_x * scale), (first_y * scale), 0xFFFF00FF);
-		mlx_put_pixel(cub3d->map_img, (first_x * scale) + 1, (first_y * scale), 0xFFFF00FF);
-		mlx_put_pixel(cub3d->map_img, (first_x * scale) + 1, (first_y * scale) + 1, 0xFFFF00FF);
-		mlx_put_pixel(cub3d->map_img, (first_x * scale), (first_y * scale) + 1, 0xFFFF00FF);
+		mlx_put_pixel(cub3d->map_img, (end_x * scale), (end_y * scale), 0xFFFF00FF);
+		mlx_put_pixel(cub3d->map_img, (end_x * scale) + 1, (end_y * scale), 0xFFFF00FF);
+		mlx_put_pixel(cub3d->map_img, (end_x * scale) + 1, (end_y * scale) + 1, 0xFFFF00FF);
+		mlx_put_pixel(cub3d->map_img, (end_x * scale), (end_y * scale) + 1, 0xFFFF00FF);
 	}
-	ft_draw_line(cub3d, player->pos_x * scale, player->pos_y * scale, first_x * scale, first_y * scale);
-
+	ft_draw_line(cub3d, player->pos_x * scale, player->pos_y * scale, end_x * scale, end_y * scale);
+	vert_len = dx / cos(player->angle);
+	return (vert_len);
 }
