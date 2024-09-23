@@ -6,7 +6,7 @@
 /*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:44:25 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/22 18:35:49 by cstoia           ###   ########.fr       */
+/*   Updated: 2024/09/23 15:21:11 by cstoia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include "../libft/libft.h"
 
 # define PI 3.141592654
+# define MAP_SIZE 1000
 
 typedef struct s_map
 {
