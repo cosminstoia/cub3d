@@ -6,7 +6,7 @@
 /*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:27:27 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/22 15:36:45 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/09/23 13:30:36 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void ft_move_player(void* param)
 		cub3d->player->dy = sin(cub3d->player->angle) * 0.05;
 		ft_draw_player(cub3d ,cub3d->player, cub3d->map->scale);
 	}
-	ft_draw_ray(cub3d, cub3d->player, cub3d->map->scale);
 }
 
 int	ft_no_wall_crash(t_cub3d *cub3d, float x_adjustment, float y_adjustment)
