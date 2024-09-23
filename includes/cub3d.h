@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:44:25 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/22 15:25:45 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/09/22 18:35:49 by cstoia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,12 @@
 
 typedef struct s_map
 {
-
+	char			*NO;
+	char			*SO;
+	char			*WE;
+	char			*EA;
+	int				F[3];
+	int				C[3];
 	char			**m_arr;
 	int				width;
 	int				height;
@@ -85,7 +90,7 @@ void		ft_y_greater(t_line_pts line, t_cub3d *cub3d, int step_x, int step_y);
 int			read_map(char *input, t_map *map);
 
 // check_map.c
-int			validate_map(t_cub3d *cub3d);
+int			check_map(t_cub3d *cub3d);
 
 
 #endif

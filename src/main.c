@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:56:56 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/22 15:27:16 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/09/23 12:33:53 by cstoia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int main(int argc, char **argv)
 		if (!cub3d)
 			return (1);
 		read_map(argv[1], cub3d->map);
-		validate_map(cub3d);
+		check_map(cub3d);
 		// -------------  PRINT MAP ----------------- //
 		int i = 0;
 		while(i < cub3d->map->height)
