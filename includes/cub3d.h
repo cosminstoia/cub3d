@@ -58,7 +58,7 @@ typedef struct s_cub3d
 	mlx_image_t		*map_img;
 } t_cub3d;
 
-typedef struct s_line_pts
+typedef struct s_line
 {
 	int		start_x;
 	int		start_y;
@@ -67,14 +67,29 @@ typedef struct s_line_pts
 	int		dx;
 	int		dy;
 	float	slope_err;
-} t_line_pts;
+} t_line;
+
+typedef struct s_ray
+{
+	double	dx;
+	double	dy;
+	double	end_x;
+	double	end_y;
+	double	step;
+	double	len;
+} t_ray;
 
 // draw_minimap.c
 void		ft_draw_map(t_cub3d *cub3d, t_map *map);
 void		ft_print_block(t_cub3d *cub3d, int arr_x, int arr_y, u_int32_t colour);
 void		ft_draw_player(t_cub3d *cub3d, t_player *player, int scale);
-void		ft_draw_ray(t_cub3d *cub3d, t_player *player, int scale);
-float		ft_ray_vert(t_cub3d *cub3d, t_player *player, float vert_len, int scale);
+
+// raycasting.c
+int			ft_draw_ray(t_cub3d *cub3d, t_player *player, int scale);
+t_ray		ft_ray_vert_init(t_player *player);
+t_ray		ft_ray_vert(t_cub3d *cub3d, t_player *player, t_ray vert_ray);
+t_ray		ft_ray_horiz_init(t_player *player);
+t_ray		ft_ray_horiz(t_cub3d *cub3d, t_player *player, t_ray horiz_ray);
 
 // move_player.c
 void		ft_move_player(void* param);
@@ -82,9 +97,9 @@ int			ft_no_wall_crash(t_cub3d *cub3d, float x_adjust, float y_adjust);
 
 // lines.c
 void		ft_draw_line(t_cub3d *cub3d, int start_x, int start_y, int end_x, int end_y);
-t_line_pts	ft_init_line(int start_x, int start_y, int end_x, int end_y);
-void		ft_x_greater(t_line_pts line, t_cub3d *cub3d, int step_x, int step_y);
-void		ft_y_greater(t_line_pts line, t_cub3d *cub3d, int step_x, int step_y);
+t_line		ft_init_line(int start_x, int start_y, int end_x, int end_y);
+void		ft_x_greater(t_line line, t_cub3d *cub3d, int step_x, int step_y);
+void		ft_y_greater(t_line line, t_cub3d *cub3d, int step_x, int step_y);
 
 // read_map.c
 int			read_map(char *input, t_map *map);

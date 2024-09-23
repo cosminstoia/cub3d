@@ -6,7 +6,7 @@
 /*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 17:31:50 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/21 14:25:02 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/09/22 16:13:21 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_draw_line(t_cub3d *cub3d, int start_x, int start_y, int end_x, int end_y)
 {
-	t_line_pts	line;
+	t_line	line;
 	int			step_x;
 	int			step_y;
 
@@ -34,9 +34,9 @@ void	ft_draw_line(t_cub3d *cub3d, int start_x, int start_y, int end_x, int end_y
 		ft_y_greater(line, cub3d, step_x, step_y);
 }
 
-t_line_pts	ft_init_line(int start_x, int start_y, int end_x, int end_y)
+t_line	ft_init_line(int start_x, int start_y, int end_x, int end_y)
 {
-	t_line_pts line;
+	t_line line;
 
 	line.start_x = start_x;
 	line.end_x = end_x;
@@ -47,7 +47,7 @@ t_line_pts	ft_init_line(int start_x, int start_y, int end_x, int end_y)
 	return(line);
 }
 
-void	ft_x_greater(t_line_pts line, t_cub3d *cub3d, int step_x, int step_y)
+void	ft_x_greater(t_line line, t_cub3d *cub3d, int step_x, int step_y)
 {
 	line.slope_err = line.dx / 2;
 	while (line.start_x != line.end_x && line.start_x < cub3d->map->width_pix && line.start_x > 0)//need to be corrected
@@ -64,7 +64,7 @@ void	ft_x_greater(t_line_pts line, t_cub3d *cub3d, int step_x, int step_y)
 	}
 }
 
-void	ft_y_greater(t_line_pts line, t_cub3d *cub3d, int step_x, int step_y)
+void	ft_y_greater(t_line line, t_cub3d *cub3d, int step_x, int step_y)
 {
 	line.slope_err = abs(line.dy) / 2;
 	while (line.start_y != line.end_y  && line.start_y < cub3d->map->height_pix && line.start_y > 0)
