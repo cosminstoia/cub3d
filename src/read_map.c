@@ -6,7 +6,7 @@
 /*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:17:32 by cstoia            #+#    #+#             */
-/*   Updated: 2024/09/22 19:20:06 by cstoia           ###   ########.fr       */
+/*   Updated: 2024/09/23 15:52:58 by cstoia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@ static void	map_size(t_map *map, char *line)
 {
 	int	len;
 
-	len = ft_strlen(line) - 1;
-	if (line[0] == '\n')
+	len = ft_strlen(line);
+	if (line[len - 1] == '\n')
+		len--;
+	if (len == 0)
 	{
 		printf("Error:\nInvalid map!");
 		exit(EXIT_FAILURE);
@@ -55,7 +57,7 @@ static void	parse_textures_and_colors(t_map *map, char *line)
 		map->C[1] = ft_atoi(rgb_values[1]);
 		map->C[2] = ft_atoi(rgb_values[2]);
 	}
-	// ft_free_split(split_line); // Free the split line memory
+	// free split_line and rgb_values here
 }
 
 int	read_map(char *input, t_map *map)
@@ -92,6 +94,10 @@ int	read_map(char *input, t_map *map)
 	}
 
 	map->m_arr = ft_split(concatenated_lines, '\n');
+	if (map->width > map->height)
+		map->scale = MAP_SIZE / map->width;
+	else
+		map->scale = MAP_SIZE / map->height;
 	free(concatenated_lines);
 	close(fd);
 	return (EXIT_SUCCESS);

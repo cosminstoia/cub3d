@@ -6,7 +6,7 @@
 /*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:56:56 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/23 12:33:53 by cstoia           ###   ########.fr       */
+/*   Updated: 2024/09/23 16:18:34 by cstoia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,24 @@ int main(int argc, char **argv)
 			return (1);
 		read_map(argv[1], cub3d->map);
 		check_map(cub3d);
-		// -------------  PRINT MAP ----------------- //
-		int i = 0;
-		while(i < cub3d->map->height)
-		{
-			printf("%s\n", cub3d->map->m_arr[i]);
-			i++;
-		}
-		// -------------  PRINT MAP ----------------- //
+		// // -------------  PRINT MAP ----------------- //
+		// int i = 0;
+		// while(i < cub3d->map->height)
+		// {
+		// 	printf("%s\n", cub3d->map->m_arr[i]);
+		// 	i++;
+		// }
+		// printf("North Texture: %s\n", cub3d->map->NO);
+		// printf("South Texture: %s\n", cub3d->map->SO);
+		// printf("East Texture: %s\n", cub3d->map->EA);
+		// printf("West Texture: %s\n", cub3d->map->WE);
+		// printf("Floor Color: %d, %d, %d\n", cub3d->map->F[0], cub3d->map->F[1], cub3d->map->F[2]);
+		// printf("Floor Color: %d, %d, %d\n", cub3d->map->C[0], cub3d->map->C[1], cub3d->map->C[2]);
+		// printf("Map Width: %d\n", cub3d->map->width);
+		// printf("Map Height: %d\n", cub3d->map->height);
+		// // -------------  PRINT MAP ----------------- //
 		cub3d->mlx = mlx_init(2500, 1500, "Cub3D", false);
-		cub3d->map_img = mlx_new_image(cub3d->mlx, 700, 700);
+		cub3d->map_img = mlx_new_image(cub3d->mlx, MAP_SIZE, MAP_SIZE);
 		mlx_image_to_window(cub3d->mlx, cub3d->map_img, 20, 20);
 		ft_draw_player(cub3d, cub3d->player, cub3d->map->scale);
 		mlx_loop_hook(cub3d->mlx, ft_move_player, cub3d);

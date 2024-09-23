@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_minimap.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:18:25 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/22 15:35:28 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/09/23 15:16:58 by cstoia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	ft_draw_map(t_cub3d *cub3d, t_map *map)
 	int	arr_y;
 
 	arr_y = 0;
-
 	while (arr_y < map->height)
 	{
 		arr_x = 0;
