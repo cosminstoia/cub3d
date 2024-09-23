@@ -6,7 +6,7 @@
 /*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:18:25 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/22 16:36:26 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/09/23 15:29:47 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,13 @@ void	ft_print_block(t_cub3d *cub3d, int arr_x, int arr_y, u_int32_t colour)
 
 void	ft_draw_player(t_cub3d *cub3d, t_player *player, int scale)
 {
-	ft_draw_map(cub3d, cub3d->map);
+	double orig_angle;
+	int i;
 	int	x;
 	int	y;
 
-	x = 0;
+	ft_draw_map(cub3d, cub3d->map);
+	x = -1;
 	while (x < 4)
 	{
 		y = 0;
@@ -73,4 +75,18 @@ void	ft_draw_player(t_cub3d *cub3d, t_player *player, int scale)
 		}
 		x++;	
 	}
+	i = 0;
+	orig_angle = cub3d->player->angle;
+	cub3d->player->angle -= 0.5;
+	if (cub3d->player->angle < 0)
+		cub3d->player->angle += PI * 2;
+	while (i < 500)
+	{
+		ft_draw_ray(cub3d, cub3d->player, cub3d->map->scale);
+		cub3d->player->angle += 0.002;
+		if (cub3d->player->angle > (PI * 2))
+			cub3d->player->angle -= PI * 2;
+		i++;
+	}
+	cub3d->player->angle -= 0.5;
 }
