@@ -6,7 +6,7 @@
 /*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 16:07:05 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/23 18:16:55 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/09/24 18:38:24 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ void	ft_draw_main_img(t_cub3d *cub3d, t_ray ray, float orig_angle, int x)
 		y = 0;
 		while (y < (WNDW_HEIGHT / 2))
 		{
-			mlx_put_pixel(cub3d->main_img, x_adj, y, 0x003300FF);
+			mlx_put_pixel(cub3d->main_img, x_adj, y, cub3d->map->hex_clg);
 			y++;
 		}
 		while (y < WNDW_HEIGHT)
 		{
-			mlx_put_pixel(cub3d->main_img, x_adj, y, 0x330000FF);
+			mlx_put_pixel(cub3d->main_img, x_adj, y, cub3d->map->hex_flr);
 			y++;
 		}
 		x_adj++;
