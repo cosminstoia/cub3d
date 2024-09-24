@@ -6,7 +6,7 @@
 /*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:44:25 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/24 18:37:27 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/09/24 19:43:38 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,5 +115,7 @@ int			check_map(t_cub3d *cub3d);
 
 // main_img.c
 void		ft_draw_main_img(t_cub3d *cub3d, t_ray ray, float orig_angle, int x);
+double		ft_correct_fisheye(t_cub3d *cub3d, t_ray ray, double orig_angle);
+void		ft_draw_clg_and_flr(t_cub3d *cub3d, int x_adj, int x, int y);
 
 #endif

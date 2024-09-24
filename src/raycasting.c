@@ -6,7 +6,7 @@
 /*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 16:36:48 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/23 17:48:34 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/09/24 19:35:31 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ t_ray	ft_ray_vert_init(t_player *player)
 
 	if (player->angle < 1.5 * PI && player->angle > 0.5 * PI)
 	{
-		vert_ray.end_x = floor(player->pos_x) - 0.001;
+		vert_ray.end_x = floor(player->pos_x) - 0.000001;
 		vert_ray.dx = vert_ray.end_x - player->pos_x;
 		vert_ray.step = -1;
 	}
 	else
 	{
-		vert_ray.end_x = ceil(player->pos_x) + 0.001;
+		vert_ray.end_x = ceil(player->pos_x) + 0.000001;
 		vert_ray.dx = vert_ray.end_x - player->pos_x;
 		vert_ray.step = 1;
 	}
@@ -67,13 +67,13 @@ t_ray	ft_ray_vert(t_cub3d *cub3d, t_player *player, t_ray vert_ray)
 	}
 	if (vert_ray.step == -1)
 	{
-		vert_ray.dx += 0.002;
-		vert_ray.end_x += 0.002;
+		vert_ray.dx += 0.000002;
+		vert_ray.end_x += 0.000002;
 	}
 	else
 	{
-		vert_ray.dx -= 0.002;
-		vert_ray.end_x -= 0.002;
+		vert_ray.dx -= 0.000002;
+		vert_ray.end_x -= 0.000002;
 	}
 	vert_ray.dy = tan(player->angle) * vert_ray.dx;
 	vert_ray.end_y = player->pos_y + vert_ray.dy;
@@ -87,13 +87,13 @@ t_ray	ft_ray_horiz_init(t_player *player)
 
 	if (player->angle >= PI)
 	{
-		horiz_ray.end_y = floor(player->pos_y) - 0.001;
+		horiz_ray.end_y = floor(player->pos_y) - 0.000001;
 		horiz_ray.dy = horiz_ray.end_y - player->pos_y;
 		horiz_ray.step = -1;
 	}
 	else
 	{
-		horiz_ray.end_y = ceil(player->pos_y) + 0.001;
+		horiz_ray.end_y = ceil(player->pos_y) + 0.000001;
 		horiz_ray.dy = horiz_ray.end_y - player->pos_y;
 		horiz_ray.step = 1;
 	}
@@ -113,13 +113,13 @@ t_ray	ft_ray_horiz(t_cub3d *cub3d, t_player *player, t_ray horiz_ray)
 	}
 	if (horiz_ray.step == -1)
 	{
-		horiz_ray.dy += 0.002;
-		horiz_ray.end_y += 0.002;
+		horiz_ray.dy += 0.000002;
+		horiz_ray.end_y += 0.000002;
 	}
 	else
 	{
-		horiz_ray.dy -= 0.002;
-		horiz_ray.end_y -= 0.002;
+		horiz_ray.dy -= 0.000002;
+		horiz_ray.end_y -= 0.000002;
 	}
 	horiz_ray.dx = horiz_ray.dy / tan(player->angle);
 	horiz_ray.end_y = player->pos_y + horiz_ray.dy;
