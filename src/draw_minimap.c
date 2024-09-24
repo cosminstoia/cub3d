@@ -6,7 +6,7 @@
 /*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:18:25 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/23 15:29:47 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:45:39 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,13 @@ void	ft_draw_player(t_cub3d *cub3d, t_player *player, int scale)
 	int	y;
 
 	ft_draw_map(cub3d, cub3d->map);
-	x = -1;
-	while (x < 4)
+	x = 0;
+	while (x < 3)
 	{
 		y = 0;
-		while (y < 4)
+		while (y < 3)
 		{
-			mlx_put_pixel(cub3d->map_img, x + (player->pos_x * scale) -2, y + (player->pos_y * scale) -2, 0x00FF00FF);	
+			mlx_put_pixel(cub3d->map_img, x + (player->pos_x * scale) -1, y + (player->pos_y * scale) -1, 0x00FF00FF);
 			y++;
 		}
 		x++;	
@@ -82,7 +82,7 @@ void	ft_draw_player(t_cub3d *cub3d, t_player *player, int scale)
 		cub3d->player->angle += PI * 2;
 	while (i < 500)
 	{
-		ft_draw_ray(cub3d, cub3d->player, cub3d->map->scale);
+		ft_draw_ray(cub3d, cub3d->player, orig_angle, i * 5);
 		cub3d->player->angle += 0.002;
 		if (cub3d->player->angle > (PI * 2))
 			cub3d->player->angle -= PI * 2;

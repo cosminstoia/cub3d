@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:44:25 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/22 18:35:49 by cstoia           ###   ########.fr       */
+/*   Updated: 2024/09/23 18:17:15 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include "../libft/libft.h"
 
 # define PI 3.141592654
+# define WNDW_WIDTH 2500
+# define WNDW_HEIGHT 1500
 
 typedef struct s_map
 {
@@ -56,6 +58,7 @@ typedef struct s_cub3d
 	t_map			*map;
 	t_player		*player;
 	mlx_image_t		*map_img;
+	mlx_image_t		*main_img;
 } t_cub3d;
 
 typedef struct s_line
@@ -85,7 +88,7 @@ void		ft_print_block(t_cub3d *cub3d, int arr_x, int arr_y, u_int32_t colour);
 void		ft_draw_player(t_cub3d *cub3d, t_player *player, int scale);
 
 // raycasting.c
-int			ft_draw_ray(t_cub3d *cub3d, t_player *player, int scale);
+int			ft_draw_ray(t_cub3d *cub3d, t_player *player, float orig_angle, int x);
 t_ray		ft_ray_vert_init(t_player *player);
 t_ray		ft_ray_vert(t_cub3d *cub3d, t_player *player, t_ray vert_ray);
 t_ray		ft_ray_horiz_init(t_player *player);
@@ -107,5 +110,7 @@ int			read_map(char *input, t_map *map);
 // check_map.c
 int			check_map(t_cub3d *cub3d);
 
+// main_img.c
+void		ft_draw_main_img(t_cub3d *cub3d, t_ray ray, float orig_angle, int x);
 
 #endif
