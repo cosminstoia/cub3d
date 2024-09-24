@@ -6,7 +6,7 @@
 /*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:27:27 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/23 13:30:36 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/09/23 16:57:09 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void ft_move_player(void* param)
 			cub3d->player->pos_x += cub3d->player->dx;
 			cub3d->player->pos_y += cub3d->player->dy;
 		}
-		ft_draw_player(cub3d ,cub3d->player, cub3d->map->scale);
+		ft_draw_player(cub3d, cub3d->player, cub3d->map->scale);
 	}
 	if (mlx_is_key_down(cub3d->mlx, MLX_KEY_A))//move player left
 	{
@@ -36,7 +36,7 @@ void ft_move_player(void* param)
 			cub3d->player->pos_x += cub3d->player->dy;
 			cub3d->player->pos_y -= cub3d->player->dx;
 		}
-		ft_draw_player(cub3d ,cub3d->player, cub3d->map->scale);
+		ft_draw_player(cub3d, cub3d->player, cub3d->map->scale);
 	}
 	if (mlx_is_key_down(cub3d->mlx, MLX_KEY_S))//move player backwards
 	{
@@ -45,7 +45,7 @@ void ft_move_player(void* param)
 			cub3d->player->pos_x -= cub3d->player->dx;
 			cub3d->player->pos_y -= cub3d->player->dy;
 		}
-		ft_draw_player(cub3d ,cub3d->player, cub3d->map->scale);
+		ft_draw_player(cub3d, cub3d->player, cub3d->map->scale);
 	}
 	if (mlx_is_key_down(cub3d->mlx, MLX_KEY_D))//move player right
 	{
@@ -54,7 +54,7 @@ void ft_move_player(void* param)
 			cub3d->player->pos_x -= cub3d->player->dy;
 			cub3d->player->pos_y += cub3d->player->dx;
 		}
-		ft_draw_player(cub3d ,cub3d->player, cub3d->map->scale);
+		ft_draw_player(cub3d, cub3d->player, cub3d->map->scale);
 	}
 	if (mlx_is_key_down(cub3d->mlx, MLX_KEY_LEFT))//rotate left
 	{
@@ -63,7 +63,7 @@ void ft_move_player(void* param)
 			cub3d->player->angle += PI * 2;
 		cub3d->player->dx = cos(cub3d->player->angle) * 0.05;
 		cub3d->player->dy = sin(cub3d->player->angle) * 0.05;
-		ft_draw_player(cub3d ,cub3d->player, cub3d->map->scale);
+		ft_draw_player(cub3d, cub3d->player, cub3d->map->scale);
 	}
 	if (mlx_is_key_down(cub3d->mlx, MLX_KEY_RIGHT))//rotate right
 	{
@@ -72,7 +72,7 @@ void ft_move_player(void* param)
 			cub3d->player->angle -= PI * 2;
 		cub3d->player->dx = cos(cub3d->player->angle) * 0.05;
 		cub3d->player->dy = sin(cub3d->player->angle) * 0.05;
-		ft_draw_player(cub3d ,cub3d->player, cub3d->map->scale);
+		ft_draw_player(cub3d, cub3d->player, cub3d->map->scale);
 	}
 }
 
