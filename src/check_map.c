@@ -6,22 +6,20 @@
 /*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:27:20 by cstoia            #+#    #+#             */
-/*   Updated: 2024/09/23 16:22:23 by cstoia           ###   ########.fr       */
+/*   Updated: 2024/09/24 11:52:53 by cstoia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static void	check_walls(t_map *map)
+// Check top wall check bottom wall
+static void	check_top_and_bot_wall(t_map *map)
 {
-	int		y;
 	size_t	x;
 	size_t	row_length;
 
-	// Check top wall
-	row_length = ft_strlen(map->m_arr[0]);
 	x = 0;
-	while (x < row_length)
+	while (x < ft_strlen(map->m_arr[0]))
 	{
 		if (map->m_arr[0][x] != '1' && map->m_arr[0][x] != ' ')
 		{
@@ -30,26 +28,6 @@ static void	check_walls(t_map *map)
 		}
 		x++;
 	}
-	y = 0;
-	while (y < map->height)
-	{
-		// Check left wall
-		if (map->m_arr[y][0] != '1' && map->m_arr[y][0] != ' ')
-		{
-			printf("Error:\nInvalid wall at left boundary");
-			exit(EXIT_FAILURE);
-		}
-		// Check right wall only if within bounds
-		row_length = ft_strlen(map->m_arr[y]);
-		if (row_length == 0 || (map->m_arr[y][row_length - 1] != '1'
-				&& map->m_arr[y][row_length - 1] != ' '))
-		{
-			printf("Error:\nInvalid wall at right boundary");
-			exit(EXIT_FAILURE);
-		}
-		y++;
-	}
-	// Check bottom wall
 	row_length = ft_strlen(map->m_arr[map->height - 1]);
 	x = 0;
 	while (x < row_length)
@@ -64,14 +42,50 @@ static void	check_walls(t_map *map)
 	}
 }
 
+// Check left wall check right wall only if within bounds
+static void	check_left_and_right_wall(t_map *map)
+{
+	int		y;
+	size_t	row_length;
+
+	row_length = ft_strlen(map->m_arr[0]);
+	y = 0;
+	while (y < map->height)
+	{
+		if (map->m_arr[y][0] != '1' && map->m_arr[y][0] != ' ')
+		{
+			printf("Error:\nInvalid wall at left boundary");
+			exit(EXIT_FAILURE);
+		}
+		row_length = ft_strlen(map->m_arr[y]);
+		if (row_length == 0 || (map->m_arr[y][row_length - 1] != '1'
+				&& map->m_arr[y][row_length - 1] != ' '))
+		{
+			printf("Error:\nInvalid wall at right boundary");
+			exit(EXIT_FAILURE);
+		}
+		y++;
+	}
+}
+
+// Store the data for the player
+static void	store_player_data(t_player *player, double angle, double dx,
+		double dy)
+{
+	player->angle = PI * angle;
+	player->dx = dx;
+	player->dy = dy;
+}
+
+// Check for invalid charachters and find the position of the player
 static int	check_character_position(t_player *player, char c, int i, int j)
 {
-	// if (c != '1' && c != '0' && c != 'N' && c != 'S' && c != 'E' && c != 'W'
-	// 	&& c != '\0' && c != ' ')
-	// {
-	// 	printf("Error:\nInvalid characters");
-	// 	exit(EXIT_FAILURE);
-	// }
+	if (c != '1' && c != '0' && c != 'N' && c != 'S' && c != 'E' && c != 'W'
+		&& c != ' ')
+	{
+		printf("Error:\nInvalid characters");
+		exit(EXIT_FAILURE);
+	}
 	if (c == 'N' || c == 'E' || c == 'W' || c == 'S')
 	{
 		player->pos_x = i;
@@ -79,41 +93,55 @@ static int	check_character_position(t_player *player, char c, int i, int j)
 		player->p_flag++;
 	}
 	if (c == 'N')
-	{
-		player->angle = PI * 1.5;
-		player->dx = 0;
-		player->dy = -0.05;
-	}
+		store_player_data(player, 1.5, 0, -0.05);
 	if (c == 'E')
-	{
-		player->angle = 0;
-		player->dx = +0.05;
-		player->dy = 0;
-	}
+		store_player_data(player, 0, +0.05, 0);
 	if (c == 'S')
-	{
-		player->angle = PI * 0.5;
-		player->dx = 0;
-		player->dy = +0.05;
-	}
+		store_player_data(player, 0.5, 0, +0.05);
 	if (c == 'W')
-	{
-		player->angle = PI;
-		player->dx = -0.05;
-		player->dy = 0;
-	}
+		store_player_data(player, 1, -0.05, 0);
 	return (EXIT_SUCCESS);
 }
 
-static int	check_character(t_cub3d *cub3d)
+// Update the widht of each line from the map
+int	find_line_width(const char *map)
+{
+	int			max_width;
+	const char	*line;
+	const char	*next_line;
+	int			current_width;
+
+	max_width = 0;
+	line = map;
+	next_line = ft_strchr(line, '\n');
+	while (*line)
+	{
+		if (!next_line)
+			next_line = line + ft_strlen(line);
+		current_width = next_line - line;
+		if (current_width > max_width)
+			max_width = current_width;
+		if (*next_line)
+			line = next_line + 1;
+		else
+			line = next_line;
+		next_line = ft_strchr(line, '\n');
+	}
+	return (max_width);
+}
+
+int	check_map(t_cub3d *cub3d)
 {
 	int		i;
 	int		j;
 	char	c;
 
 	i = 0;
+	check_top_and_bot_wall(cub3d->map);
+	check_left_and_right_wall(cub3d->map);
 	while (i < cub3d->map->height)
 	{
+		cub3d->map->width = find_line_width(cub3d->map->m_arr[i]);
 		j = 0;
 		while (j < cub3d->map->width)
 		{
@@ -123,13 +151,6 @@ static int	check_character(t_cub3d *cub3d)
 		}
 		i++;
 	}
-	return (EXIT_SUCCESS);
-}
-
-int	check_map(t_cub3d *cub3d)
-{
-	check_walls(cub3d->map);
-	check_character(cub3d);
 	cub3d->map->width_pix = cub3d->map->scale * cub3d->map->width;
 	cub3d->map->height_pix = cub3d->map->scale * cub3d->map->height;
 	return (EXIT_SUCCESS);
