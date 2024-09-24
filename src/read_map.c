@@ -6,7 +6,7 @@
 /*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:17:32 by cstoia            #+#    #+#             */
-/*   Updated: 2024/09/23 15:52:58 by cstoia           ###   ########.fr       */
+/*   Updated: 2024/09/24 10:10:55 by cstoia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,18 @@ static void	map_size(t_map *map, char *line)
 	map->height++;
 }
 
+static unsigned long	rgb_to_hex(int *rgb)
+{
+	int	r;
+	int	g;
+	int	b;
+
+	r = rgb[0];
+	g = rgb[1];
+	b = rgb[2];
+	return (((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff));
+}
+
 static void	parse_textures_and_colors(t_map *map, char *line)
 {
 	char	**split_line;
@@ -49,6 +61,8 @@ static void	parse_textures_and_colors(t_map *map, char *line)
 		map->F[0] = ft_atoi(rgb_values[0]);
 		map->F[1] = ft_atoi(rgb_values[1]);
 		map->F[2] = ft_atoi(rgb_values[2]);
+		map->hex_F = rgb_to_hex(map->F);
+		// ft_cleanup(cub3d);
 	}
 	else if (split_line[0] && !ft_strncmp(split_line[0], "C", 1))
 	{
@@ -56,8 +70,10 @@ static void	parse_textures_and_colors(t_map *map, char *line)
 		map->C[0] = ft_atoi(rgb_values[0]);
 		map->C[1] = ft_atoi(rgb_values[1]);
 		map->C[2] = ft_atoi(rgb_values[2]);
+		map->hex_C = rgb_to_hex(map->C);
+		// ft_cleanup(cub3d);
 	}
-	// free split_line and rgb_values here
+	// ft_cleanup(cub3d);
 }
 
 int	read_map(char *input, t_map *map)
