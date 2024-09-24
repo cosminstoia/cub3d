@@ -24,6 +24,7 @@
 # define PI 3.141592654
 # define WNDW_WIDTH 2500
 # define WNDW_HEIGHT 1500
+# define MAP_SIZE 1000
 
 typedef struct s_map
 {
@@ -33,6 +34,8 @@ typedef struct s_map
 	char			*EA;
 	int				F[3];
 	int				C[3];
+	unsigned long	hex_F;
+	unsigned long	hex_C;
 	char			**m_arr;
 	int				width;
 	int				height;

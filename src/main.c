@@ -50,18 +50,26 @@ int main(int argc, char **argv)
 			return (1);
 		read_map(argv[1], cub3d->map);
 		check_map(cub3d);
-		// -------------  PRINT MAP ----------------- //
-		int i = 0;
-		while(i < cub3d->map->height)
-		{
-			printf("%s\n", cub3d->map->m_arr[i]);
-			i++;
-		}
-		// -------------  PRINT MAP ----------------- //
 		cub3d->mlx = mlx_init(WNDW_WIDTH, WNDW_HEIGHT, "Cub3D", false);
 		cub3d->main_img = mlx_new_image(cub3d->mlx, WNDW_WIDTH, WNDW_HEIGHT);
 		mlx_image_to_window(cub3d->mlx, cub3d->main_img, 0, 0);
-		cub3d->map_img = mlx_new_image(cub3d->mlx, 700, 700);
+		// // -------------  PRINT MAP ----------------- //
+		// int i = 0;
+		// while(i < cub3d->map->height)
+		// {
+		// 	printf("%s\n", cub3d->map->m_arr[i]);
+		// 	i++;
+		// }
+		// printf("North Texture: %s\n", cub3d->map->NO);
+		// printf("South Texture: %s\n", cub3d->map->SO);
+		// printf("East Texture: %s\n", cub3d->map->EA);
+		// printf("West Texture: %s\n", cub3d->map->WE);
+		// printf("Floor Color (Hex): %#06lx\n", cub3d->map->hex_F);
+		// printf("Ceiling Color (Hex): %#06lx\n", cub3d->map->hex_C);
+		// printf("Map Width: %d\n", cub3d->map->width);
+		// printf("Map Height: %d\n", cub3d->map->height);
+		// // -------------  PRINT MAP ----------------- //
+		cub3d->map_img = mlx_new_image(cub3d->mlx, MAP_SIZE, MAP_SIZE);
 		mlx_image_to_window(cub3d->mlx, cub3d->map_img, 20, 20);
 		ft_draw_player(cub3d, cub3d->player, cub3d->map->scale);
 		mlx_loop_hook(cub3d->mlx, ft_move_player, cub3d);
