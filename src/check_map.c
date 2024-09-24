@@ -6,7 +6,7 @@
 /*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:27:20 by cstoia            #+#    #+#             */
-/*   Updated: 2024/09/24 10:23:20 by cstoia           ###   ########.fr       */
+/*   Updated: 2024/09/24 11:52:53 by cstoia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,12 @@ static void	store_player_data(t_player *player, double angle, double dx,
 // Check for invalid charachters and find the position of the player
 static int	check_character_position(t_player *player, char c, int i, int j)
 {
-	// if (c != '1' && c != '0' && c != 'N' && c != 'S' && c != 'E' && c != 'W'
-	// 	&& c != ' ' && c != '`')
-	// {
-	// 	printf("%c\n", c);
-	// 	printf("Error:\nInvalid characters");
-	// 	exit(EXIT_FAILURE);
-	// }
+	if (c != '1' && c != '0' && c != 'N' && c != 'S' && c != 'E' && c != 'W'
+		&& c != ' ')
+	{
+		printf("Error:\nInvalid characters");
+		exit(EXIT_FAILURE);
+	}
 	if (c == 'N' || c == 'E' || c == 'W' || c == 'S')
 	{
 		player->pos_x = i;
@@ -104,6 +103,33 @@ static int	check_character_position(t_player *player, char c, int i, int j)
 	return (EXIT_SUCCESS);
 }
 
+// Update the widht of each line from the map
+int	find_line_width(const char *map)
+{
+	int			max_width;
+	const char	*line;
+	const char	*next_line;
+	int			current_width;
+
+	max_width = 0;
+	line = map;
+	next_line = ft_strchr(line, '\n');
+	while (*line)
+	{
+		if (!next_line)
+			next_line = line + ft_strlen(line);
+		current_width = next_line - line;
+		if (current_width > max_width)
+			max_width = current_width;
+		if (*next_line)
+			line = next_line + 1;
+		else
+			line = next_line;
+		next_line = ft_strchr(line, '\n');
+	}
+	return (max_width);
+}
+
 int	check_map(t_cub3d *cub3d)
 {
 	int		i;
@@ -115,6 +141,7 @@ int	check_map(t_cub3d *cub3d)
 	check_left_and_right_wall(cub3d->map);
 	while (i < cub3d->map->height)
 	{
+		cub3d->map->width = find_line_width(cub3d->map->m_arr[i]);
 		j = 0;
 		while (j < cub3d->map->width)
 		{
