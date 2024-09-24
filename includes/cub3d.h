@@ -6,7 +6,7 @@
 /*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:44:25 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/23 18:17:15 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/09/24 18:37:27 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@
 
 typedef struct s_map
 {
-	char			*NO;
-	char			*SO;
-	char			*WE;
-	char			*EA;
-	int				F[3];
-	int				C[3];
-	unsigned long	hex_F;
-	unsigned long	hex_C;
+	char			*no;
+	char			*so;
+	char			*we;
+	char			*ea;
+	int				floor[3];
+	int				ceiling[3];
+	unsigned long	hex_flr;
+	unsigned long	hex_clg;
 	char			**m_arr;
 	int				width;
 	int				height;
