@@ -6,7 +6,7 @@
 /*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:56:56 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/23 16:18:34 by cstoia           ###   ########.fr       */
+/*   Updated: 2024/09/24 10:11:37 by cstoia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ int main(int argc, char **argv)
 		// printf("South Texture: %s\n", cub3d->map->SO);
 		// printf("East Texture: %s\n", cub3d->map->EA);
 		// printf("West Texture: %s\n", cub3d->map->WE);
-		// printf("Floor Color: %d, %d, %d\n", cub3d->map->F[0], cub3d->map->F[1], cub3d->map->F[2]);
-		// printf("Floor Color: %d, %d, %d\n", cub3d->map->C[0], cub3d->map->C[1], cub3d->map->C[2]);
+		// printf("Floor Color (Hex): %#06lx\n", cub3d->map->hex_F);
+		// printf("Ceiling Color (Hex): %#06lx\n", cub3d->map->hex_C);
 		// printf("Map Width: %d\n", cub3d->map->width);
 		// printf("Map Height: %d\n", cub3d->map->height);
 		// // -------------  PRINT MAP ----------------- //
