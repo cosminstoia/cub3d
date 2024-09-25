@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:44:25 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/23 18:17:15 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/09/24 18:17:31 by cstoia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ typedef struct s_map
 	char			*SO;
 	char			*WE;
 	char			*EA;
-	int				F[3];
-	int				C[3];
+	int				f[3];
+	int				c[3];
 	unsigned long	hex_F;
 	unsigned long	hex_C;
 	char			**m_arr;
@@ -111,7 +111,7 @@ void		ft_y_greater(t_line line, t_cub3d *cub3d, int step_x, int step_y);
 int			read_map(char *input, t_map *map);
 
 // check_map.c
-int			check_map(t_cub3d *cub3d);
+int			check_map(t_cub3d *cub3d,char *filename);
 
 // main_img.c
 void		ft_draw_main_img(t_cub3d *cub3d, t_ray ray, float orig_angle, int x);
