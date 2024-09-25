@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:17:32 by cstoia            #+#    #+#             */
 /*   Updated: 2024/09/25 11:37:17 by cstoia           ###   ########.fr       */
@@ -38,7 +38,7 @@ static unsigned long	rgb_to_hex(int *rgb)
 	r = rgb[0];
 	g = rgb[1];
 	b = rgb[2];
-	return (((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff));
+	return (((r & 0xff) << 24) + ((g & 0xff) << 16) + (b & 0xff << 8) + (255 & 0xff));
 }
 
 static void	parse_textures_and_colors(t_map *map, char *line)
@@ -48,29 +48,29 @@ static void	parse_textures_and_colors(t_map *map, char *line)
 
 	split_line = ft_split(line, ' ');
 	if (split_line[0] && !ft_strncmp(split_line[0], "NO", 2))
-		map->NO = ft_strdup(split_line[1]);
+		map->no = ft_strdup(split_line[1]);
 	else if (split_line[0] && !ft_strncmp(split_line[0], "SO", 2))
-		map->SO = ft_strdup(split_line[1]);
+		map->so = ft_strdup(split_line[1]);
 	else if (split_line[0] && !ft_strncmp(split_line[0], "WE", 2))
-		map->WE = ft_strdup(split_line[1]);
+		map->we = ft_strdup(split_line[1]);
 	else if (split_line[0] && !ft_strncmp(split_line[0], "EA", 2))
-		map->EA = ft_strdup(split_line[1]);
+		map->ea = ft_strdup(split_line[1]);
 	else if (split_line[0] && !ft_strncmp(split_line[0], "F", 1))
 	{
 		rgb_values = ft_split(split_line[1], ',');
-		map->f[0] = ft_atoi(rgb_values[0]);
-		map->f[1] = ft_atoi(rgb_values[1]);
-		map->f[2] = ft_atoi(rgb_values[2]);
-		map->hex_F = rgb_to_hex(map->f);
+		map->floor[0] = ft_atoi(rgb_values[0]);
+		map->floor[1] = ft_atoi(rgb_values[1]);
+		map->floor[2] = ft_atoi(rgb_values[2]);
+		map->hex_flr = rgb_to_hex(map->floor);
 		// ft_cleanup(cub3d);
 	}
 	else if (split_line[0] && !ft_strncmp(split_line[0], "C", 1))
 	{
 		rgb_values = ft_split(split_line[1], ',');
-		map->c[0] = ft_atoi(rgb_values[0]);
-		map->c[1] = ft_atoi(rgb_values[1]);
-		map->c[2] = ft_atoi(rgb_values[2]);
-		map->hex_C = rgb_to_hex(map->c);
+		map->ceiling[0] = ft_atoi(rgb_values[0]);
+		map->ceiling[1] = ft_atoi(rgb_values[1]);
+		map->ceiling[2] = ft_atoi(rgb_values[2]);
+		map->hex_clg = rgb_to_hex(map->ceiling);
 		// ft_cleanup(cub3d);
 	}
 	// ft_cleanup(cub3d);

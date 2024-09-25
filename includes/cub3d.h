@@ -28,14 +28,14 @@
 
 typedef struct s_map
 {
-	char			*NO;
-	char			*SO;
-	char			*WE;
-	char			*EA;
-	int				f[3];
-	int				c[3];
-	unsigned long	hex_F;
-	unsigned long	hex_C;
+	char			*no;
+	char			*so;
+	char			*we;
+	char			*ea;
+	int				floor[3];
+	int				ceiling[3];
+	unsigned long	hex_flr;
+	unsigned long	hex_clg;
 	char			**m_arr;
 	int				width;
 	int				height;
@@ -115,5 +115,7 @@ int			check_map(t_cub3d *cub3d,char *filename);
 
 // main_img.c
 void		ft_draw_main_img(t_cub3d *cub3d, t_ray ray, float orig_angle, int x);
+double		ft_correct_fisheye(t_cub3d *cub3d, t_ray ray, double orig_angle);
+void		ft_draw_clg_and_flr(t_cub3d *cub3d, int x_adj, int x, int y);
 
 #endif
