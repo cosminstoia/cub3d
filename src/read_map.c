@@ -6,7 +6,7 @@
 /*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:17:32 by cstoia            #+#    #+#             */
-/*   Updated: 2024/09/24 18:37:27 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/09/25 11:37:17 by cstoia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,39 @@ static void	parse_textures_and_colors(t_map *map, char *line)
 	// ft_cleanup(cub3d);
 }
 
+static void	fill_empty_space(t_map *map)
+{
+	int		i;
+	int		j;
+	char	*new_line;
+	int		line_length;
+
+	i = 0;
+	while (map->m_arr[i])
+	{
+		line_length = ft_strlen(map->m_arr[i]);
+		if (line_length < map->width)
+		{
+			new_line = ft_calloc(map->width + 1, sizeof(char));
+			j = 0;
+			while (map->m_arr[i][j])
+			{
+				new_line[j] = map->m_arr[i][j];
+				j++;
+			}
+			while (j < map->width)
+			{
+				new_line[j] = ' ';
+				j++;
+			}
+			new_line[j] = '\0';
+			free(map->m_arr[i]);
+			map->m_arr[i] = new_line;
+		}
+		i++;
+	}
+}
+
 int	read_map(char *input, t_map *map)
 {
 	int fd;
@@ -108,8 +141,8 @@ int	read_map(char *input, t_map *map)
 		free(line);
 		line = get_next_line(fd);
 	}
-
 	map->m_arr = ft_split(concatenated_lines, '\n');
+	fill_empty_space(map);
 	if (map->width > map->height)
 		map->scale = MAP_SIZE / map->width;
 	else

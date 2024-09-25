@@ -6,7 +6,7 @@
 /*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:27:20 by cstoia            #+#    #+#             */
-/*   Updated: 2024/09/24 11:52:53 by cstoia           ###   ########.fr       */
+/*   Updated: 2024/09/25 11:38:11 by cstoia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ static void	store_player_data(t_player *player, double angle, double dx,
 // Check for invalid charachters and find the position of the player
 static int	check_character_position(t_player *player, char c, int i, int j)
 {
-	if (c != '1' && c != '0' && c != 'N' && c != 'S' && c != 'E' && c != 'W'
-		&& c != ' ')
+	if ((c != '1' && c != '0' && c != 'N' && c != 'S' && c != 'E' && c != 'W'
+			&& c != ' ') || player->p_flag >= 2)
 	{
 		printf("Error:\nInvalid characters");
 		exit(EXIT_FAILURE);
@@ -130,26 +130,45 @@ int	find_line_width(const char *map)
 	return (max_width);
 }
 
-int	check_map(t_cub3d *cub3d)
+static void	check_filename(const char *filename)
+{
+	const char	*extension = ft_strrchr(filename, '.');
+
+	if (extension && ft_strncmp(extension, ".cub", 4) != 0)
+	{
+		printf("Error\nFile extension must be .cub\n");
+		// ft_cleanup();
+		exit(EXIT_FAILURE);
+	}
+}
+
+int	check_map(t_cub3d *cub3d, char *filename)
 {
 	int		i;
 	int		j;
 	char	c;
+	int		width;
 
 	i = 0;
+	check_filename(filename);
 	check_top_and_bot_wall(cub3d->map);
 	check_left_and_right_wall(cub3d->map);
 	while (i < cub3d->map->height)
 	{
-		cub3d->map->width = find_line_width(cub3d->map->m_arr[i]);
+		width = find_line_width(cub3d->map->m_arr[i]);
 		j = 0;
-		while (j < cub3d->map->width)
+		while (j < width)
 		{
 			c = cub3d->map->m_arr[i][j];
 			check_character_position(cub3d->player, c, j, i);
 			j++;
 		}
 		i++;
+	}
+	if (cub3d->player->p_flag == 0)
+	{
+		printf("Error:\nNumber of player invalid!\n");
+		exit(EXIT_FAILURE);
 	}
 	cub3d->map->width_pix = cub3d->map->scale * cub3d->map->width;
 	cub3d->map->height_pix = cub3d->map->scale * cub3d->map->height;
