@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:44:25 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/24 18:17:31 by cstoia           ###   ########.fr       */
+/*   Updated: 2024/09/26 17:47:12 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,27 +62,30 @@ typedef struct s_cub3d
 	t_player		*player;
 	mlx_image_t		*map_img;
 	mlx_image_t		*main_img;
+	mlx_texture_t	*texture_array[4];
 } t_cub3d;
 
 typedef struct s_line
 {
-	int		start_x;
-	int		start_y;
-	int		end_x;
-	int		end_y;
-	int		dx;
-	int		dy;
-	float	slope_err;
+	int				start_x;
+	int				start_y;
+	int				end_x;
+	int				end_y;
+	int				dx;
+	int				dy;
+	float			slope_err;
 } t_line;
 
 typedef struct s_ray
 {
-	double	dx;
-	double	dy;
-	double	end_x;
-	double	end_y;
-	double	step;
-	double	len;
+	double			dx;
+	double			dy;
+	double			end_x;
+	double			end_y;
+	double			step;
+	double			len;
+	bool			is_north_or_south;
+	mlx_texture_t	*texture;
 } t_ray;
 
 // draw_minimap.c
@@ -92,9 +95,9 @@ void		ft_draw_player(t_cub3d *cub3d, t_player *player, int scale);
 
 // raycasting.c
 int			ft_draw_ray(t_cub3d *cub3d, t_player *player, float orig_angle, int x);
-t_ray		ft_ray_vert_init(t_player *player);
+t_ray		ft_ray_vert_init(t_cub3d *cub3d, t_player *player);
 t_ray		ft_ray_vert(t_cub3d *cub3d, t_player *player, t_ray vert_ray);
-t_ray		ft_ray_horiz_init(t_player *player);
+t_ray		ft_ray_horiz_init(t_cub3d *cub3d, t_player *player);
 t_ray		ft_ray_horiz(t_cub3d *cub3d, t_player *player, t_ray horiz_ray);
 
 // move_player.c

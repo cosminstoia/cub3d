@@ -6,7 +6,7 @@
 /*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:17:32 by cstoia            #+#    #+#             */
-/*   Updated: 2024/09/25 11:37:17 by cstoia           ###   ########.fr       */
+/*   Updated: 2024/09/26 15:50:41 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static unsigned long	rgb_to_hex(int *rgb)
 	r = rgb[0];
 	g = rgb[1];
 	b = rgb[2];
-	return (((r & 0xff) << 24) + ((g & 0xff) << 16) + (b & 0xff << 8) + (255 & 0xff));
+	return ((r << 24) | (g << 16) | (b << 8) | 255);
 }
 
 static void	parse_textures_and_colors(t_map *map, char *line)

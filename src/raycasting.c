@@ -6,7 +6,7 @@
 /*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 16:36:48 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/24 19:35:31 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/09/26 18:00:10 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int	ft_draw_ray(t_cub3d *cub3d, t_player *player, float orig_angle, int x)
 	t_ray vert_ray;
 	t_ray horiz_ray;
 
-	vert_ray = ft_ray_vert_init(player);
+	vert_ray = ft_ray_vert_init(cub3d, player);
 	vert_ray = ft_ray_vert(cub3d, player, vert_ray);
-	horiz_ray = ft_ray_horiz_init(player);
+	horiz_ray = ft_ray_horiz_init(cub3d, player);
 	horiz_ray = ft_ray_horiz(cub3d, player, horiz_ray);
 
 	if (vert_ray.len < horiz_ray.len)
@@ -35,18 +35,21 @@ int	ft_draw_ray(t_cub3d *cub3d, t_player *player, float orig_angle, int x)
 	return (0);
 }
 
-t_ray	ft_ray_vert_init(t_player *player)
+t_ray	ft_ray_vert_init(t_cub3d *cub3d, t_player *player)
 {
 	t_ray vert_ray;
 
+	vert_ray.is_north_or_south = false;
 	if (player->angle < 1.5 * PI && player->angle > 0.5 * PI)
 	{
+		vert_ray.texture = cub3d->texture_array[2];
 		vert_ray.end_x = floor(player->pos_x) - 0.000001;
 		vert_ray.dx = vert_ray.end_x - player->pos_x;
 		vert_ray.step = -1;
 	}
 	else
 	{
+		vert_ray.texture = cub3d->texture_array[3];
 		vert_ray.end_x = ceil(player->pos_x) + 0.000001;
 		vert_ray.dx = vert_ray.end_x - player->pos_x;
 		vert_ray.step = 1;
@@ -81,18 +84,21 @@ t_ray	ft_ray_vert(t_cub3d *cub3d, t_player *player, t_ray vert_ray)
 	return (vert_ray);
 }
 
-t_ray	ft_ray_horiz_init(t_player *player)
+t_ray	ft_ray_horiz_init(t_cub3d *cub3d, t_player *player)
 {
 	t_ray horiz_ray;
 
+	horiz_ray.is_north_or_south = true;
 	if (player->angle >= PI)
 	{
+		horiz_ray.texture = cub3d->texture_array[0];
 		horiz_ray.end_y = floor(player->pos_y) - 0.000001;
 		horiz_ray.dy = horiz_ray.end_y - player->pos_y;
 		horiz_ray.step = -1;
 	}
 	else
 	{
+		horiz_ray.texture = cub3d->texture_array[1];
 		horiz_ray.end_y = ceil(player->pos_y) + 0.000001;
 		horiz_ray.dy = horiz_ray.end_y - player->pos_y;
 		horiz_ray.step = 1;
