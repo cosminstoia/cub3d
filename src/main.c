@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:56:56 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/25 11:38:24 by cstoia           ###   ########.fr       */
+/*   Updated: 2024/09/26 18:19:21 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,17 @@ t_cub3d	*ft_make_structs(t_cub3d *cub3d)
 	return (cub3d);
 }
 
+int	ft_load_textures(t_cub3d *cub3d)
+{
+	cub3d->texture_array[0] = mlx_load_png("./textures/Bricks_22-512x512.png");// replace with cub3d->map->no once fixed; 
+	cub3d->texture_array[1] = mlx_load_png("./textures/Bricks_23-512x512.png");
+	cub3d->texture_array[2] = mlx_load_png("./textures/Bricks_24-512x512.png");
+	cub3d->texture_array[3] = mlx_load_png("./textures/Bricks_25-512x512.png");
+	if (cub3d->texture_array[0] == NULL || cub3d->texture_array[1] == NULL || cub3d->texture_array[2] == NULL || cub3d->texture_array[3] == NULL)
+		return (-1);
+	return (0);
+}
+
 int main(int argc, char **argv)
 {
 	t_cub3d		*cub3d;
@@ -51,6 +62,7 @@ int main(int argc, char **argv)
 		read_map(argv[1], cub3d->map);
 		check_map(cub3d, argv[1]);
 		cub3d->mlx = mlx_init(WNDW_WIDTH, WNDW_HEIGHT, "Cub3D", false);
+		ft_load_textures(cub3d);
 		cub3d->main_img = mlx_new_image(cub3d->mlx, WNDW_WIDTH, WNDW_HEIGHT);
 		mlx_image_to_window(cub3d->mlx, cub3d->main_img, 0, 0);
 		// // -------------  PRINT MAP ----------------- //
@@ -60,12 +72,16 @@ int main(int argc, char **argv)
 		// 	printf("%s\n", cub3d->map->m_arr[i]);
 		// 	i++;
 		// }
-		// printf("North Texture: %s\n", cub3d->map->NO);
-		// printf("South Texture: %s\n", cub3d->map->SO);
-		// printf("East Texture: %s\n", cub3d->map->EA);
-		// printf("West Texture: %s\n", cub3d->map->WE);
-		// printf("Floor Color (Hex): %#06lx\n", cub3d->map->hex_F);
-		// printf("Ceiling Color (Hex): %#06lx\n", cub3d->map->hex_C);
+		// printf("North Texture: %s\n", cub3d->map->no);
+		// printf("South Texture: %s\n", cub3d->map->so);
+		// printf("East Texture: %s\n", cub3d->map->ea);
+		// printf("West Texture: %s\n", cub3d->map->we);
+		// printf("Floor Color r g b: %d, %d, %d\n", cub3d->map->floor[0], cub3d->map->floor[1], cub3d->map->floor[2]);
+		// printf("Ceiling Color r g b: %d, %d, %d\n", cub3d->map->ceiling[0], cub3d->map->ceiling[1], cub3d->map->ceiling[2]);
+		// printf("Floor Color (Hex): %#06lx\n", cub3d->map->hex_flr);
+		// printf("Ceiling Color (Hex): %#06lx\n", cub3d->map->hex_clg);
+		// printf("Floor Color (dev): %lu\n", cub3d->map->hex_flr);
+		// printf("Ceiling Color (dec): %lu\n", cub3d->map->hex_clg);
 		// printf("Map Width: %d\n", cub3d->map->width);
 		// printf("Map Height: %d\n", cub3d->map->height);
 		// // -------------  PRINT MAP ----------------- //
