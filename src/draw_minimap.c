@@ -23,7 +23,7 @@ void	ft_draw_map(t_cub3d *cub3d, t_map *map)
 		arr_x = 0;
 		while (arr_x < map->width)
 		{
-			if (map->m_arr[arr_y][arr_x] == '1')
+			if (map->m_arr[arr_y][arr_x] == '1' || map->m_arr[arr_y][arr_x] == ' ')
 				ft_print_block(cub3d, arr_x, arr_y, 0xFFFFFFFF);
 			else
 				ft_print_block(cub3d, arr_x, arr_y, 0x000000FF);

@@ -37,6 +37,7 @@ typedef struct s_map
 	unsigned long	hex_flr;
 	unsigned long	hex_clg;
 	char			**m_arr;
+	char			**mapcopy;
 	int				width;
 	int				height;
 	int				scale;
