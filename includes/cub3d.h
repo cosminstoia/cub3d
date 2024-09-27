@@ -6,7 +6,7 @@
 /*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:44:25 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/26 17:47:12 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/09/27 18:28:06 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include "../libft/libft.h"
 
 # define PI 3.141592654
-# define WNDW_WIDTH 2500
+# define WNDW_WIDTH 2000
 # define WNDW_HEIGHT 1500
 # define MAP_SIZE 1000
 
@@ -119,6 +119,6 @@ int			check_map(t_cub3d *cub3d,char *filename);
 // main_img.c
 void		ft_draw_main_img(t_cub3d *cub3d, t_ray ray, float orig_angle, int x);
 double		ft_correct_fisheye(t_cub3d *cub3d, t_ray ray, double orig_angle);
-void		ft_draw_clg_and_flr(t_cub3d *cub3d, int x_adj, int x, int y);
+void		ft_draw_clg_and_flr(t_cub3d *cub3d, int x, int y);
 
 #endif
