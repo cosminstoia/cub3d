@@ -6,7 +6,7 @@
 /*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:18:25 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/23 17:45:39 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/09/26 10:48:40 by cstoia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_draw_map(t_cub3d *cub3d, t_map *map)
 		arr_x = 0;
 		while (arr_x < map->width)
 		{
-			if (map->m_arr[arr_y][arr_x] == '1')
+			if (map->m_arr[arr_y][arr_x] == '1' || map->m_arr[arr_y][arr_x] == ' ')
 				ft_print_block(cub3d, arr_x, arr_y, 0xFFFFFFFF);
 			else
 				ft_print_block(cub3d, arr_x, arr_y, 0x000000FF);

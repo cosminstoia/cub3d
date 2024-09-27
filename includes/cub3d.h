@@ -6,7 +6,7 @@
 /*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:44:25 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/26 17:47:12 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/09/26 16:47:35 by cstoia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_map
 	unsigned long	hex_flr;
 	unsigned long	hex_clg;
 	char			**m_arr;
+	char			**mapcopy;
 	int				width;
 	int				height;
 	int				scale;
