@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_map.c                                        :+:      :+:    :+:   */
+/*   check_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:27:20 by cstoia            #+#    #+#             */
-/*   Updated: 2024/09/27 14:51:16 by cstoia           ###   ########.fr       */
+/*   Updated: 2024/09/28 15:59:13 by cstoia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
 // Flood fill to ensure the player is surrounded by walls
-static int	flood_fill(char **tab, int pos_x, int pos_y)
-{
-	int	result;
-
-	if (pos_x < 0 || pos_y < 0 || tab[pos_y] == NULL
-		|| tab[pos_y][pos_x] == '1')
-		return (1);
-	tab[pos_y][pos_x] = '1';
-	result = 0;
-	result = flood_fill(tab, pos_x - 1, pos_y);
-	result = flood_fill(tab, pos_x + 1, pos_y);
-	result = flood_fill(tab, pos_x, pos_y - 1);
-	result = flood_fill(tab, pos_x, pos_y + 1);
-	return (result);
-}
+// static void flood_fill(char **tab, int pos_y, int pos_x)
+// {
+//     if (pos_x < 0 || pos_y < 0 || tab[pos_y] == NULL
+//	|| tab[pos_y][pos_x] == '\0' || tab[pos_y][pos_x] == '1')
+//         return ;
+//     if (tab[pos_y][pos_x] != '0' && tab[pos_y][pos_x] != '1')
+//         return ;
+//     tab[pos_y][pos_x] = 'V';
+//     flood_fill(tab, pos_x - 1, pos_y);
+//     flood_fill(tab, pos_x + 1, pos_y);
+//     flood_fill(tab, pos_x, pos_y - 1);
+//     flood_fill(tab, pos_x, pos_y + 1);
+// }
 
 // Store the data for the player
 static void	store_player_data(t_player *player, double angle, double dx,
@@ -49,8 +47,8 @@ static int	check_character_position(t_player *player, char c, int x, int y)
 	}
 	if (c == 'N' || c == 'E' || c == 'W' || c == 'S')
 	{
-		player->pos_x = x;
-		player->pos_y = y;
+		player->pos_x = y;
+		player->pos_y = x;
 		player->p_flag++;
 		if (c == 'N')
 			store_player_data(player, 1.5, 0, -0.05);
@@ -130,16 +128,37 @@ static void	check_charachetrs(t_cub3d *cub3d)
 	}
 }
 
-int	check_map(t_cub3d *cub3d, char *filename)
+static void	check_texture_path(char *path)
+{
+	int	fd;
+
+	fd = open(path, O_RDONLY);
+	if (fd == -1)
+	{
+		printf("Error:\nInvalid path %s\n", path);
+		// ft_cleanup();
+		exit(EXIT_FAILURE);
+	}
+	close(fd);
+}
+
+int	check_input(t_cub3d *cub3d, char *filename)
 {
 	check_filename(filename);
 	check_charachetrs(cub3d);
-	if (flood_fill(cub3d->map->mapcopy, cub3d->player->pos_x,
-			cub3d->player->pos_y))
-	{
-		printf("Error: Flood fill failed! The player is not surrounded by walls.\n");
-		// exit(EXIT_FAILURE);
-	}
+	check_texture_path(cub3d->map->no);
+	check_texture_path(cub3d->map->so);
+	check_texture_path(cub3d->map->we);
+	check_texture_path(cub3d->map->ea);
+	// flood_fill(cub3d->map->mapcopy, cub3d->player->pos_x,
+	// cub3d->player->pos_y);
+	// if (cub3d->map->mapcopy[(int)cub3d->player->pos_y][(int)cub3d->player->pos_x] != 'V')
+	// {
+	//     printf("Error: Flood fill failed! The player is not surrounded by walls.\n");
+	//    // exit(EXIT_FAILURE);
+	// }
+	// else
+	//     printf("Flood fill succeeded!\n");
 	cub3d->map->width_pix = cub3d->map->scale * cub3d->map->width;
 	cub3d->map->height_pix = cub3d->map->scale * cub3d->map->height;
 	return (EXIT_SUCCESS);

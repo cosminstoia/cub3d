@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:56:56 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/27 11:53:41 by cstoia           ###   ########.fr       */
+/*   Updated: 2024/09/28 15:25:09 by cstoia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,11 @@ t_cub3d	*ft_make_structs(t_cub3d *cub3d)
 
 int	ft_load_textures(t_cub3d *cub3d)
 {
-	cub3d->texture_array[0] = mlx_load_png("./textures/Bricks_22-512x512.png");// replace with cub3d->map->no once fixed; 
-	cub3d->texture_array[1] = mlx_load_png("./textures/Bricks_23-512x512.png");
-	cub3d->texture_array[2] = mlx_load_png("./textures/Bricks_24-512x512.png");
-	cub3d->texture_array[3] = mlx_load_png("./textures/Bricks_25-512x512.png");
+	printf("%s", cub3d->map->no);
+	cub3d->texture_array[0] = mlx_load_png(cub3d->map->no);
+	cub3d->texture_array[1] = mlx_load_png(cub3d->map->so);
+	cub3d->texture_array[2] = mlx_load_png(cub3d->map->we);
+	cub3d->texture_array[3] = mlx_load_png(cub3d->map->ea);
 	if (cub3d->texture_array[0] == NULL || cub3d->texture_array[1] == NULL || cub3d->texture_array[2] == NULL || cub3d->texture_array[3] == NULL)
 		return (-1);
 	return (0);
@@ -59,8 +60,8 @@ int main(int argc, char **argv)
 		cub3d = ft_make_structs(cub3d);
 		if (!cub3d)
 			return (1);
-		read_map(argv[1], cub3d->map);
-		check_map(cub3d, argv[1]);
+		read_input(argv[1], cub3d->map);
+		check_input(cub3d, argv[1]);
 		cub3d->mlx = mlx_init(WNDW_WIDTH, WNDW_HEIGHT, "Cub3D", false);
 		ft_load_textures(cub3d);
 		cub3d->main_img = mlx_new_image(cub3d->mlx, WNDW_WIDTH, WNDW_HEIGHT);
@@ -69,10 +70,10 @@ int main(int argc, char **argv)
 		// int i = 0;
 		// while(i < cub3d->map->height)
 		// {
-		// 	printf("%s\n", cub3d->map->m_arr[i]);
+		// 	printf("%s\n", cub3d->map->mapcopy[i]);
 		// 	i++;
 		// }
-		// printf("North Texture: %s\n", cub3d->map->no);
+		//printf("North Texture: %s\n", cub3d->map->no);
 		// printf("South Texture: %s\n", cub3d->map->so);
 		// printf("East Texture: %s\n", cub3d->map->ea);
 		// printf("West Texture: %s\n", cub3d->map->we);

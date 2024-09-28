@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_map.c                                         :+:      :+:    :+:   */
+/*   read_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:17:32 by cstoia            #+#    #+#             */
-/*   Updated: 2024/09/27 11:56:41 by cstoia           ###   ########.fr       */
+/*   Updated: 2024/09/28 15:57:02 by cstoia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static unsigned long	rgb_to_hex(int *rgb)
 	r = rgb[0];
 	g = rgb[1];
 	b = rgb[2];
-  return ((r << 24) | (g << 16) | (b << 8) | 255);
+	return ((r << 24) | (g << 16) | (b << 8) | 255);
 }
 
 static void	parse_textures_and_colors(t_map *map, char *line)
@@ -47,6 +47,12 @@ static void	parse_textures_and_colors(t_map *map, char *line)
 	char	**rgb_values;
 
 	split_line = ft_split(line, ' ');
+	if (!split_line[1])
+	{
+		printf("Error:\nNo space between texture/color identifiers and path/codes.\n");
+		//ft_cleanup();
+		exit(EXIT_FAILURE);
+	}
 	if (split_line[0] && !ft_strncmp(split_line[0], "NO", 2))
 		map->no = ft_strdup(ft_strtrim(split_line[1], " \n"));
 	else if (split_line[0] && !ft_strncmp(split_line[0], "SO", 2))
@@ -109,7 +115,7 @@ static void	fill_empty_space(t_map *map)
 	}
 }
 
-int	read_map(char *input, t_map *map)
+int	read_input(char *input, t_map *map)
 {
 	int fd;
 	char *line;
