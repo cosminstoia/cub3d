@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:44:25 by gstronge          #+#    #+#             */
 /*   Updated: 2024/09/27 18:28:06 by gstronge         ###   ########.fr       */
@@ -112,10 +112,10 @@ void		ft_x_greater(t_line line, t_cub3d *cub3d, int step_x, int step_y);
 void		ft_y_greater(t_line line, t_cub3d *cub3d, int step_x, int step_y);
 
 // read_map.c
-int			read_map(char *input, t_map *map);
+int			read_input(char *input, t_map *map);
 
 // check_map.c
-int			check_map(t_cub3d *cub3d,char *filename);
+int			check_input(t_cub3d *cub3d,char *filename);
 
 // main_img.c
 void		ft_draw_main_img(t_cub3d *cub3d, t_ray ray, float orig_angle, int x);

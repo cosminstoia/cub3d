@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:56:56 by gstronge          #+#    #+#             */
 /*   Updated: 2024/09/27 18:37:02 by gstronge         ###   ########.fr       */
@@ -62,8 +62,9 @@ int main(int argc, char **argv)
 		cub3d = ft_make_structs(cub3d);
 		if (!cub3d)
 			return (1);
-		read_map(argv[1], cub3d->map);
-		check_map(cub3d, argv[1]);
+		read_input(argv[1], cub3d->map);
+		check_input(cub3d, argv[1]);
+		cub3d->mlx = mlx_init(WNDW_WIDTH, WNDW_HEIGHT, "Cub3D", false);
 		ft_load_textures(cub3d);
 		cub3d->mlx = mlx_init(WNDW_WIDTH, WNDW_HEIGHT, "Cub3D", false);
 		cub3d->main_img = mlx_new_image(cub3d->mlx, WNDW_WIDTH, WNDW_HEIGHT);
@@ -72,10 +73,10 @@ int main(int argc, char **argv)
 		// int i = 0;
 		// while(i < cub3d->map->height)
 		// {
-		// 	printf("%s\n", cub3d->map->m_arr[i]);
+		// 	printf("%s\n", cub3d->map->mapcopy[i]);
 		// 	i++;
 		// }
-		// printf("North Texture: %s\n", cub3d->map->no);
+		//printf("North Texture: %s\n", cub3d->map->no);
 		// printf("South Texture: %s\n", cub3d->map->so);
 		// printf("East Texture: %s\n", cub3d->map->ea);
 		// printf("West Texture: %s\n", cub3d->map->we);
