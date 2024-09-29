@@ -6,7 +6,7 @@
 /*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:56:56 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/28 15:25:09 by cstoia           ###   ########.fr       */
+/*   Updated: 2024/09/27 18:37:02 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,15 @@ t_cub3d	*ft_make_structs(t_cub3d *cub3d)
 
 int	ft_load_textures(t_cub3d *cub3d)
 {
-	printf("%s", cub3d->map->no);
 	cub3d->texture_array[0] = mlx_load_png(cub3d->map->no);
 	cub3d->texture_array[1] = mlx_load_png(cub3d->map->so);
 	cub3d->texture_array[2] = mlx_load_png(cub3d->map->we);
 	cub3d->texture_array[3] = mlx_load_png(cub3d->map->ea);
 	if (cub3d->texture_array[0] == NULL || cub3d->texture_array[1] == NULL || cub3d->texture_array[2] == NULL || cub3d->texture_array[3] == NULL)
+	{
+		printf("error loading texture images\n");
 		return (-1);
+	}
 	return (0);
 }
 
@@ -64,6 +66,7 @@ int main(int argc, char **argv)
 		check_input(cub3d, argv[1]);
 		cub3d->mlx = mlx_init(WNDW_WIDTH, WNDW_HEIGHT, "Cub3D", false);
 		ft_load_textures(cub3d);
+		cub3d->mlx = mlx_init(WNDW_WIDTH, WNDW_HEIGHT, "Cub3D", false);
 		cub3d->main_img = mlx_new_image(cub3d->mlx, WNDW_WIDTH, WNDW_HEIGHT);
 		mlx_image_to_window(cub3d->mlx, cub3d->main_img, 0, 0);
 		// // -------------  PRINT MAP ----------------- //

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_minimap.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:18:25 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/27 15:23:12 by cstoia           ###   ########.fr       */
+/*   Updated: 2024/09/27 18:36:05 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,10 @@ void	ft_draw_player(t_cub3d *cub3d, t_player *player, int scale)
 	cub3d->player->angle -= 0.5;
 	if (cub3d->player->angle < 0)
 		cub3d->player->angle += PI * 2;
-	while (i < 500)
+	while (i < 2000)
 	{
-		ft_draw_ray(cub3d, cub3d->player, orig_angle, i * 5);
-		cub3d->player->angle += 0.002;
+		ft_draw_ray(cub3d, cub3d->player, orig_angle, i);
+		cub3d->player->angle += 0.0005;
 		if (cub3d->player->angle > (PI * 2))
 			cub3d->player->angle -= PI * 2;
 		i++;
