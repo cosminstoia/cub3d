@@ -6,41 +6,41 @@
 /*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 16:07:05 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/27 18:30:23 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/10/01 12:14:07 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-uint32_t	ft_wall_pix_clr(t_ray ray, double wall_height, int y)
+uint32_t	ft_wall_pix_clr(t_ray ray, float wall_height, uint32_t y)
 {
 
 	uint32_t		colour;
 	unsigned int	index;
-	float			x;
+	uint32_t		x;
 	int				offset;
 
 	offset = 0;
-	colour = 255;
+	colour = 0;
 	if (ray.is_north_or_south)
 		x = round(ray.texture->width * (ray.end_x - floor(ray.end_x)));
 	else
 		x = round(ray.texture->width * (ray.end_y - floor(ray.end_y)));
-	if (wall_height > WNDW_HEIGHT)
-		offset = round((((wall_height - (double)WNDW_HEIGHT) / 2) / wall_height) * (double)ray.texture->height);
-	y = (round((ray.texture->height / wall_height) * y)) + offset;
+	if (round(wall_height) > WNDW_HEIGHT)
+		offset = round((((wall_height - WNDW_HEIGHT) / 2) / wall_height) * ray.texture->height);
+	y = round((ray.texture->height / wall_height) * y) + offset;
+	index = (x + (y * ray.texture->width)) * 4;
 
-	index = (x + (y * ray.texture->height)) * 4;
-	if ((uint32_t)y <= ray.texture->height && (uint32_t)x <= ray.texture->width && index < ray.texture->width * ray.texture->height * 4)
+	if (y <= ray.texture->height && x <= ray.texture->width && index < ray.texture->width * ray.texture->height * 4)
 		colour = (ray.texture->pixels[index] << 24) | (ray.texture->pixels[index + 1] << 16) | (ray.texture->pixels[index + 2] << 8) | ray.texture->pixels[index + 3];
 	return (colour);
 }
 
 void	ft_draw_main_img(t_cub3d *cub3d, t_ray ray, float orig_angle, int x)
 {
-	double		wall_height;
-	int			wall_pix;
-	int			y;
+	float		wall_height;
+	int			top_of_wall;
+	uint32_t	y;
 	double		distance;
 	uint32_t	colour;
 
@@ -50,14 +50,14 @@ void	ft_draw_main_img(t_cub3d *cub3d, t_ray ray, float orig_angle, int x)
 	wall_height = (1 * WNDW_HEIGHT) / distance;
 
 	y = 0;
-	wall_pix = round((WNDW_HEIGHT / 2) - (wall_height / 2));
-	if (wall_pix < 0)
-		wall_pix = 0;
-	while (y <= wall_height && y <= WNDW_HEIGHT)
+	top_of_wall = round((WNDW_HEIGHT / 2) - (wall_height / 2));
+	if (top_of_wall < 0)
+		top_of_wall = 0;
+	while (y < floor(wall_height) && y < WNDW_HEIGHT)
 	{
 		colour = ft_wall_pix_clr(ray, wall_height, y);
 
-		mlx_put_pixel(cub3d->main_img, x, y + wall_pix, colour);
+		mlx_put_pixel(cub3d->main_img, x, y + top_of_wall, colour);
 		y++;
 	}
 }
