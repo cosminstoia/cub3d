@@ -6,7 +6,7 @@
 /*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:27:27 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/23 16:57:09 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/10/01 13:11:18 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void ft_move_player(void* param)
 	t_cub3d	*cub3d;
 
 	cub3d = (t_cub3d *)param;
-	// printf("angle = %f, pos_x = %f, pos_y = %f\n", cub3d->player->angle, cub3d->player->pos_x, cub3d->player->pos_y);
 	if (mlx_is_key_down(cub3d->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(cub3d->mlx);
 	if (mlx_is_key_down(cub3d->mlx, MLX_KEY_W))//move player forwards

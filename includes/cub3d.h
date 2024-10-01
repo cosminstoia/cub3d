@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:44:25 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/27 18:28:06 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/09/29 17:15:38 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@
 # include "../libft/libft.h"
 
 # define PI 3.141592654
-# define WNDW_WIDTH 2000
-# define WNDW_HEIGHT 1500
-# define MAP_SIZE 1000
+# define WNDW_WIDTH 1600
+# define WNDW_HEIGHT 1200
+# define MAP_SIZE 700
 
 typedef struct s_map
 {

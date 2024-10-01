@@ -6,7 +6,7 @@
 /*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 17:31:50 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/22 16:13:21 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/09/29 16:33:10 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ft_x_greater(t_line line, t_cub3d *cub3d, int step_x, int step_y)
 			line.start_y += step_y;
 		}
 		if (line.start_x >= 0 && line.start_x <= cub3d->map->width_pix && line.start_y >= 0 && line.start_y <= cub3d->map->height_pix)
-			mlx_put_pixel(cub3d->map_img, round(line.start_x), round(line.start_y), 0xFF0000FF);
+			mlx_put_pixel(cub3d->map_img, round(line.start_x), round(line.start_y), 0xFF000088);
 	}
 }
 
@@ -76,7 +76,7 @@ void	ft_y_greater(t_line line, t_cub3d *cub3d, int step_x, int step_y)
 			line.slope_err = line.slope_err + abs(line.dy);
 			line.start_x += step_x;
 		}
-		if (line.start_x >= 0 && line.start_x <= cub3d->map->width_pix && line.start_y >= 0 && line.start_y <= cub3d->map->height_pix)
-			mlx_put_pixel(cub3d->map_img, round(line.start_x), round(line.start_y), 0xFF0000FF);
+		if (line.start_x > 0 && line.start_x < cub3d->map->width_pix && line.start_y > 0 && line.start_y < cub3d->map->height_pix)
+			mlx_put_pixel(cub3d->map_img, round(line.start_x), round(line.start_y), 0xFF000088);
 	}
 }

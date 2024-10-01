@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:56:56 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/27 18:37:02 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/10/01 11:41:46 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int main(int argc, char **argv)
 		check_input(cub3d, argv[1]);
 		cub3d->mlx = mlx_init(WNDW_WIDTH, WNDW_HEIGHT, "Cub3D", false);
 		ft_load_textures(cub3d);
-		cub3d->mlx = mlx_init(WNDW_WIDTH, WNDW_HEIGHT, "Cub3D", false);
 		cub3d->main_img = mlx_new_image(cub3d->mlx, WNDW_WIDTH, WNDW_HEIGHT);
 		mlx_image_to_window(cub3d->mlx, cub3d->main_img, 0, 0);
 		// // -------------  PRINT MAP ----------------- //
@@ -90,7 +89,7 @@ int main(int argc, char **argv)
 		// printf("Map Height: %d\n", cub3d->map->height);
 		// // -------------  PRINT MAP ----------------- //
 		cub3d->map_img = mlx_new_image(cub3d->mlx, MAP_SIZE, MAP_SIZE);
-		mlx_image_to_window(cub3d->mlx, cub3d->map_img, 20, 20);
+		mlx_image_to_window(cub3d->mlx, cub3d->map_img, 0, 0);
 		ft_draw_player(cub3d, cub3d->player, cub3d->map->scale);
 		mlx_loop_hook(cub3d->mlx, ft_move_player, cub3d);
 		mlx_loop(cub3d->mlx);

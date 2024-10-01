@@ -6,7 +6,7 @@
 /*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 16:36:48 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/26 18:00:10 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/09/29 17:40:33 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,14 @@ int	ft_draw_ray(t_cub3d *cub3d, t_player *player, float orig_angle, int x)
 
 	if (vert_ray.len < horiz_ray.len)
 	{
-		ft_draw_line(cub3d, player->pos_x * cub3d->map->scale, player->pos_y * cub3d->map->scale, vert_ray.end_x * cub3d->map->scale, vert_ray.end_y * cub3d->map->scale);
+		if (x % 50 == 0)
+			ft_draw_line(cub3d, player->pos_x * cub3d->map->scale, player->pos_y * cub3d->map->scale, vert_ray.end_x * cub3d->map->scale, vert_ray.end_y * cub3d->map->scale);
 		ft_draw_main_img(cub3d, vert_ray, orig_angle, x);
 	}
 	else
 	{
-		ft_draw_line(cub3d, player->pos_x * cub3d->map->scale, player->pos_y * cub3d->map->scale, horiz_ray.end_x * cub3d->map->scale, horiz_ray.end_y * cub3d->map->scale);
+		if (x % 50 == 0)
+			ft_draw_line(cub3d, player->pos_x * cub3d->map->scale, player->pos_y * cub3d->map->scale, horiz_ray.end_x * cub3d->map->scale, horiz_ray.end_y * cub3d->map->scale);
 		ft_draw_main_img(cub3d, horiz_ray, orig_angle, x);	
 	}
 	return (0);
