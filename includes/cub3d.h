@@ -6,7 +6,7 @@
 /*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:44:25 by gstronge          #+#    #+#             */
-/*   Updated: 2024/10/01 17:06:16 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/10/02 13:58:21 by cstoia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void		ft_y_greater(t_line line, t_cub3d *cub3d, int step_x, int step_y);
 int			ft_read_input(char *input, t_map *map);
 
 // check_map.c
-int			ft_check_input(t_cub3d *cub3d,char *filename);
+void		ft_check_input(t_cub3d *cub3d,char *filename);
 
 // main_img.c
 void		ft_draw_main_img(t_cub3d *cub3d, t_ray ray, float orig_angle, int x);
@@ -132,6 +132,6 @@ void		ft_parse_textures_and_colors(t_map *map, char *line);
 int			ft_check_player_position(t_player *player, char c, int x, int y);
 
 // flood_fill.c
-void 		flood_fill(char **tab, int pos_y, int pos_x);
+void 		flood_fill(char **tab, int pos_y, int pos_x, int *is_surrounded);
 
 #endif

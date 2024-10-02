@@ -6,7 +6,7 @@
 /*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:56:56 by gstronge          #+#    #+#             */
-/*   Updated: 2024/10/01 17:29:13 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/10/02 13:59:48 by cstoia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,32 +67,12 @@ int	main(int argc, char **argv)
 	cub3d = ft_make_structs(cub3d);
 	if (!cub3d)
 		return (1);
-	read_input(argv[1], cub3d->map);
-	check_input(cub3d, argv[1]);
+	ft_read_input(argv[1], cub3d->map);
+	ft_check_input(cub3d, argv[1]);
 	cub3d->mlx = mlx_init(WNDW_WIDTH, WNDW_HEIGHT, "Cub3D", true);
 	ft_load_textures(cub3d);
 	cub3d->main_img = mlx_new_image(cub3d->mlx, WNDW_WIDTH, WNDW_HEIGHT);
 	mlx_image_to_window(cub3d->mlx, cub3d->main_img, 0, 0);
-	// // -------------  PRINT MAP ----------------- //
-	// int i = 0;
-	// while(i < cub3d->map->height)
-	// {
-	// 	printf("%s\n", cub3d->map->mapcopy[i]);
-	// 	i++;
-	// }
-	//printf("North Texture: %s\n", cub3d->map->no);
-	// printf("South Texture: %s\n", cub3d->map->so);
-	// printf("East Texture: %s\n", cub3d->map->ea);
-	// printf("West Texture: %s\n", cub3d->map->we);
-	// printf("Floor Color r g b: %d, %d, %d\n", cub3d->map->floor[0], cub3d->map->floor[1], cub3d->map->floor[2]);
-	// printf("Ceiling Color r g b: %d, %d, %d\n", cub3d->map->ceiling[0], cub3d->map->ceiling[1], cub3d->map->ceiling[2]);
-	// printf("Floor Color (Hex): %#06lx\n", cub3d->map->hex_flr);
-	// printf("Ceiling Color (Hex): %#06lx\n", cub3d->map->hex_clg);
-	// printf("Floor Color (dev): %lu\n", cub3d->map->hex_flr);
-	// printf("Ceiling Color (dec): %lu\n", cub3d->map->hex_clg);
-	// printf("Map Width: %d\n", cub3d->map->width);
-	// printf("Map Height: %d\n", cub3d->map->height);
-	// // -------------  PRINT MAP ----------------- //
 	cub3d->map_img = mlx_new_image(cub3d->mlx, MAP_SIZE, MAP_SIZE);
 	mlx_image_to_window(cub3d->mlx, cub3d->map_img, 0, 0);
 	ft_draw_player(cub3d, cub3d->player, cub3d->map->scale);
