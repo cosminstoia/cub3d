@@ -6,7 +6,7 @@
 /*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:22:16 by cstoia            #+#    #+#             */
-/*   Updated: 2024/10/02 11:45:09 by cstoia           ###   ########.fr       */
+/*   Updated: 2024/10/02 15:05:40 by cstoia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,32 +53,36 @@ static void	ft_parse_texture(t_map *map, char **split_line)
 // Function to parse RGB values for the floor
 static void	ft_parse_floor_color(t_map *map, char **rgb_values)
 {
+	int	floor[3];
+
 	if (!rgb_values[0] || !rgb_values[1] || !rgb_values[2] || rgb_values[3])
 	{
 		printf("Error:\nInvalid RGB format. Expected 3 values.\n");
 		// ft_cleanup();
 		exit(EXIT_FAILURE);
 	}
-	map->floor[0] = ft_atoi(ft_strtrim(rgb_values[0], " \n"));
-	map->floor[1] = ft_atoi(ft_strtrim(rgb_values[1], " \n"));
-	map->floor[2] = ft_atoi(ft_strtrim(rgb_values[2], " \n"));
-	map->hex_flr = ft_rgb_to_hex(map->floor);
+	floor[0] = ft_atoi(ft_strtrim(rgb_values[0], " \n"));
+	floor[1] = ft_atoi(ft_strtrim(rgb_values[1], " \n"));
+	floor[2] = ft_atoi(ft_strtrim(rgb_values[2], " \n"));
+	map->hex_flr = ft_rgb_to_hex(floor);
 	map->flag++;
 }
 
 // Function to parse RGB values for the ceiling
 static void	ft_parse_ceiling_color(t_map *map, char **rgb_values)
 {
+	int	ceiling[3];
+
 	if (!rgb_values[0] || !rgb_values[1] || !rgb_values[2] || rgb_values[3])
 	{
 		printf("Error:\nInvalid RGB format. Expected 3 values.\n");
 		// ft_cleanup();
 		exit(EXIT_FAILURE);
 	}
-	map->ceiling[0] = ft_atoi(ft_strtrim(rgb_values[0], " \n"));
-	map->ceiling[1] = ft_atoi(ft_strtrim(rgb_values[1], " \n"));
-	map->ceiling[2] = ft_atoi(ft_strtrim(rgb_values[2], " \n"));
-	map->hex_clg = ft_rgb_to_hex(map->ceiling);
+	ceiling[0] = ft_atoi(ft_strtrim(rgb_values[0], " \n"));
+	ceiling[1] = ft_atoi(ft_strtrim(rgb_values[1], " \n"));
+	ceiling[2] = ft_atoi(ft_strtrim(rgb_values[2], " \n"));
+	map->hex_clg = ft_rgb_to_hex(ceiling);
 	map->flag++;
 }
 
