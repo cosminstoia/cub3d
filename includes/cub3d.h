@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:44:25 by gstronge          #+#    #+#             */
-/*   Updated: 2024/10/02 15:05:27 by cstoia           ###   ########.fr       */
+/*   Updated: 2024/10/02 18:25:40 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ typedef struct s_map
 typedef struct s_player
 {
 	int 			p_flag;
-	mlx_image_t		*p_img;
 	double			pos_x;
 	double			pos_y;
 	double			dx;
@@ -113,10 +112,10 @@ void		ft_x_greater(t_line line, t_cub3d *cub3d, int step_x, int step_y);
 void		ft_y_greater(t_line line, t_cub3d *cub3d, int step_x, int step_y);
 
 // read_map.c
-int			ft_read_input(char *input, t_map *map);
+int			ft_read_input(t_cub3d *cub3d, char *input, t_map *map);
 
 // check_map.c
-void		ft_check_input(t_cub3d *cub3d,char *filename);
+void		ft_check_input(t_cub3d *cub3d, char *filename);
 
 // main_img.c
 void		ft_draw_main_img(t_cub3d *cub3d, t_ray ray, float orig_angle, int x);
@@ -124,12 +123,18 @@ double		ft_correct_fisheye(t_cub3d *cub3d, t_ray ray, double orig_angle);
 void		ft_draw_clg_and_flr(t_cub3d *cub3d, int x, int y);
 
 // textures_colors.c
-void		ft_parse_textures_and_colors(t_map *map, char *line);
+void		ft_parse_textures_and_colors(t_cub3d *cub3d, t_map *map, char *line);
 
 // player.c
 int			ft_check_player_position(t_player *player, char c, int x, int y);
 
 // flood_fill.c
 void 		flood_fill(char **tab, int pos_y, int pos_x, int *is_surrounded);
+
+// cleanup.c
+void		ft_cleanup(t_cub3d *cub3d, char *error_message, int errno);
+void		ft_free_map(t_map *map);
+void		ft_free_2d_array(char **array, int height);
+void		ft_free_split(char **split);
 
 #endif

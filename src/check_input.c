@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:27:20 by cstoia            #+#    #+#             */
-/*   Updated: 2024/10/02 14:00:59 by cstoia           ###   ########.fr       */
+/*   Updated: 2024/10/02 18:31:24 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	ft_check_charachetrs(t_cub3d *cub3d)
 	}
 	if (cub3d->player->p_flag == 0)
 	{
-		printf("Error:\nNumber of players invalid!\n");
+		printf("Error\nNumber of players invalid!\n");
 		// ft_cleanup();
 		exit(EXIT_FAILURE);
 	}
@@ -86,7 +86,7 @@ static void	ft_check_texture_path(char *path)
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
 	{
-		printf("Error:\nInvalid path %s\n", path);
+		printf("Error\nInvalid path %s\n", path);
 		// ft_cleanup();
 		exit(EXIT_FAILURE);
 	}
@@ -106,15 +106,16 @@ void	ft_check_input(t_cub3d *cub3d, char *filename)
 	ft_check_texture_path(cub3d->map->ea);
 	flood_fill(cub3d->map->mapcopy, (int)cub3d->player->pos_y,
 		(int)cub3d->player->pos_x, &is_surrounded);
+	ft_free_2d_array(cub3d->map->mapcopy, cub3d->map->height);
 	if (!is_surrounded)
 	{
-		printf("Error:\nThe player is not surrounded by walls.\n");
+		printf("Error\nThe player is not surrounded by walls.\n");
 		// ft_cleanup(cub3d);
 		exit(EXIT_FAILURE);
 	}
 	if (cub3d->map->flag != 6)
 	{
-		printf("Error:\nToo many or too less textures or colors\n");
+		printf("Error\nToo many or too less textures or colors\n");
 		// ft_cleanup(cub3d);
 		exit(EXIT_FAILURE);
 	}
