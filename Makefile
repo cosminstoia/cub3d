@@ -6,6 +6,7 @@ CC			= cc
 
 # Compilation flags
 CFLAGS		= -Wall -Wextra -Werror -Wunreachable-code -Ofast
+# CFLAGS		= -fsanitize=address -Wall -Wextra -Werror -Wunreachable-code -Ofast
 
 # Include libraries and header files
 LIBMLX	= ./MLX42
@@ -29,7 +30,8 @@ SRCS		=	$(SRC_DIR)/main.c \
 				$(SRC_DIR)/main_img.c \
 				$(SRC_DIR)/textures_colors.c \
 				$(SRC_DIR)/player.c \
-				$(SRC_DIR)/flood_fill.c
+				$(SRC_DIR)/flood_fill.c \
+				$(SRC_DIR)/cleanup.c
 
 # Objects
 OBJS		= $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)

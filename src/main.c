@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:56:56 by gstronge          #+#    #+#             */
-/*   Updated: 2024/10/02 15:21:37 by cstoia           ###   ########.fr       */
+/*   Updated: 2024/10/02 18:33:45 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,58 +19,58 @@ t_cub3d	*ft_make_structs(t_cub3d *cub3d)
 
 	cub3d = malloc(sizeof(t_cub3d));
 	if (!cub3d)
-		return (NULL);
+		ft_cleanup(cub3d, "Error\nmalloc failed\n", EXIT_FAILURE);
+	cub3d->texture_array[0] = NULL;
+	cub3d->texture_array[1] = NULL;
+	cub3d->texture_array[2] = NULL;
+	cub3d->texture_array[3] = NULL;
 	map = ft_calloc(1, sizeof(t_map));
 	if (!map)
-	{
-		free(cub3d);
-		return (NULL);
-	}
+		ft_cleanup(cub3d, "Error\nmalloc failed\n", EXIT_FAILURE);
 	player = ft_calloc(1, sizeof(t_player));
 	if (!player)
-	{
-		free(cub3d);
-		free(map);
-		return (NULL);
-	}
+		ft_cleanup(cub3d, "Error\nmalloc failed\n", EXIT_FAILURE);
 	cub3d->map = map;
 	cub3d->player = player;
 	return (cub3d);
 }
 
-int	ft_load_textures(t_cub3d *cub3d)
+void	ft_load_textures(t_cub3d *cub3d)
 {
 	cub3d->texture_array[0] = mlx_load_png(cub3d->map->no);
+	if (!cub3d->texture_array[0])
+		ft_cleanup(cub3d, "Error\ntexture couldn't be loaded\n", EXIT_FAILURE);
 	cub3d->texture_array[1] = mlx_load_png(cub3d->map->so);
+	if (!cub3d->texture_array[1])
+		ft_cleanup(cub3d, "Error\ntexture couldn't be loaded\n", EXIT_FAILURE);
 	cub3d->texture_array[2] = mlx_load_png(cub3d->map->we);
+	if (!cub3d->texture_array[2])
+		ft_cleanup(cub3d, "Error\ntexture couldn't be loaded\n", EXIT_FAILURE);
 	cub3d->texture_array[3] = mlx_load_png(cub3d->map->ea);
-	if (cub3d->texture_array[0] == NULL || cub3d->texture_array[1] == NULL \
-		|| cub3d->texture_array[2] == NULL || cub3d->texture_array[3] == NULL)
-	{
-		printf("Error:\nLoading texture images\n");
-		return (-1);
-	}
-	return (0);
+	if (!cub3d->texture_array[3])
+		ft_cleanup(cub3d, "Error\ntexture couldn't be loaded\n", EXIT_FAILURE);
+}
+
+void	leak_check(void)//remove ---------------------------------------------------------
+{
+	system("leaks cub3D");
 }
 
 int	main(int argc, char **argv)
 {
 	t_cub3d		*cub3d;
 
-	if (argc != 2)
-	{
-		printf("Error:\nInvalid number of arguments");
-		// ft_cleanup(cub3d);ß
-		exit(EXIT_FAILURE);
-	}
+	atexit(leak_check);//remove ----------------------------------------------------------
 	cub3d = NULL;
+	if (argc != 2)
+		ft_cleanup(cub3d, "Error\nInvalid number of arguments\n", EXIT_FAILURE);
 	cub3d = ft_make_structs(cub3d);
 	if (!cub3d)
 		return (1);
-	ft_read_input(argv[1], cub3d->map);
+	ft_read_input(cub3d, argv[1], cub3d->map);
 	ft_check_input(cub3d, argv[1]);
-	cub3d->mlx = mlx_init(WNDW_WIDTH, WNDW_HEIGHT, "Cub3D", true);
 	ft_load_textures(cub3d);
+	cub3d->mlx = mlx_init(WNDW_WIDTH, WNDW_HEIGHT, "Cub3D", true);
 	cub3d->main_img = mlx_new_image(cub3d->mlx, WNDW_WIDTH, WNDW_HEIGHT);
 	mlx_image_to_window(cub3d->mlx, cub3d->main_img, 0, 0);
 	cub3d->map_img = mlx_new_image(cub3d->mlx, MAP_SIZE, MAP_SIZE);
@@ -79,6 +79,5 @@ int	main(int argc, char **argv)
 	mlx_loop_hook(cub3d->mlx, ft_move_player, cub3d);
 	mlx_loop(cub3d->mlx);
 	mlx_terminate(cub3d->mlx);
-	// ft_cleanup(cub3d);
-	return (EXIT_SUCCESS);
+	ft_cleanup(cub3d, NULL, EXIT_SUCCESS);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:55:12 by cstoia            #+#    #+#             */
-/*   Updated: 2024/10/02 14:00:19 by cstoia           ###   ########.fr       */
+/*   Updated: 2024/10/02 16:58:58 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_check_player_position(t_player *player, char c, int x, int y)
 	if ((c != '1' && c != '0' && c != 'N' && c != 'S' && c != 'E' && c != 'W'
 			&& c != ' ') || player->p_flag >= 2)
 	{
-		printf("Error:\nInvalid characters");
+		printf("Error\nInvalid characters\n");
 		// ft_cleanup();
 		exit(EXIT_FAILURE);
 	}
