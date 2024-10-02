@@ -6,7 +6,7 @@
 /*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 16:36:48 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/29 17:40:33 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/10/01 17:08:50 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,123 +14,126 @@
 
 int	ft_draw_ray(t_cub3d *cub3d, t_player *player, float orig_angle, int x)
 {
-	t_ray vert_ray;
-	t_ray horiz_ray;
+	t_ray	vrt_ray;
+	t_ray	hrz_ray;
 
-	vert_ray = ft_ray_vert_init(cub3d, player);
-	vert_ray = ft_ray_vert(cub3d, player, vert_ray);
-	horiz_ray = ft_ray_horiz_init(cub3d, player);
-	horiz_ray = ft_ray_horiz(cub3d, player, horiz_ray);
-
-	if (vert_ray.len < horiz_ray.len)
+	vrt_ray = ft_ray_vert_init(cub3d, player);
+	vrt_ray = ft_ray_vert(cub3d, player, vrt_ray);
+	hrz_ray = ft_ray_horiz_init(cub3d, player);
+	hrz_ray = ft_ray_horiz(cub3d, player, hrz_ray);
+	if (vrt_ray.len < hrz_ray.len)
 	{
 		if (x % 50 == 0)
-			ft_draw_line(cub3d, player->pos_x * cub3d->map->scale, player->pos_y * cub3d->map->scale, vert_ray.end_x * cub3d->map->scale, vert_ray.end_y * cub3d->map->scale);
-		ft_draw_main_img(cub3d, vert_ray, orig_angle, x);
+			ft_draw_line(cub3d, player, vrt_ray, cub3d->map->scale);
+		ft_draw_main_img(cub3d, vrt_ray, orig_angle, x);
 	}
 	else
 	{
 		if (x % 50 == 0)
-			ft_draw_line(cub3d, player->pos_x * cub3d->map->scale, player->pos_y * cub3d->map->scale, horiz_ray.end_x * cub3d->map->scale, horiz_ray.end_y * cub3d->map->scale);
-		ft_draw_main_img(cub3d, horiz_ray, orig_angle, x);	
+			ft_draw_line(cub3d, player, hrz_ray, cub3d->map->scale);
+		ft_draw_main_img(cub3d, hrz_ray, orig_angle, x);
 	}
 	return (0);
 }
 
 t_ray	ft_ray_vert_init(t_cub3d *cub3d, t_player *player)
 {
-	t_ray vert_ray;
+	t_ray	vrt_ray;
 
-	vert_ray.is_north_or_south = false;
+	vrt_ray.is_north_or_south = false;
 	if (player->angle < 1.5 * PI && player->angle > 0.5 * PI)
 	{
-		vert_ray.texture = cub3d->texture_array[2];
-		vert_ray.end_x = floor(player->pos_x) - 0.000001;
-		vert_ray.dx = vert_ray.end_x - player->pos_x;
-		vert_ray.step = -1;
+		vrt_ray.texture = cub3d->texture_array[2];
+		vrt_ray.end_x = floor(player->pos_x) - 0.000001;
+		vrt_ray.dx = vrt_ray.end_x - player->pos_x;
+		vrt_ray.step = -1;
 	}
 	else
 	{
-		vert_ray.texture = cub3d->texture_array[3];
-		vert_ray.end_x = ceil(player->pos_x) + 0.000001;
-		vert_ray.dx = vert_ray.end_x - player->pos_x;
-		vert_ray.step = 1;
+		vrt_ray.texture = cub3d->texture_array[3];
+		vrt_ray.end_x = ceil(player->pos_x) + 0.000001;
+		vrt_ray.dx = vrt_ray.end_x - player->pos_x;
+		vrt_ray.step = 1;
 	}
-	vert_ray.dy = tan(player->angle) * vert_ray.dx;
-	vert_ray.end_y = player->pos_y + vert_ray.dy;
-	return (vert_ray);
+	vrt_ray.dy = tan(player->angle) * vrt_ray.dx;
+	vrt_ray.end_y = player->pos_y + vrt_ray.dy;
+	return (vrt_ray);
 }
 
-t_ray	ft_ray_vert(t_cub3d *cub3d, t_player *player, t_ray vert_ray)
+t_ray	ft_ray_vert(t_cub3d *cub3d, t_player *player, t_ray vrt_ray)
 {
-	while (vert_ray.end_x >= 0 && vert_ray.end_x <= cub3d->map->width && vert_ray.end_y >= 0 && vert_ray.end_y <= cub3d->map->height && cub3d->map->m_arr[(int)(vert_ray.end_y)][(int)vert_ray.end_x] != '1')
+	while (vrt_ray.end_x >= 0 && vrt_ray.end_x <= cub3d->map->width \
+		&& vrt_ray.end_y >= 0 && vrt_ray.end_y <= cub3d->map->height \
+		&& cub3d->map->m_arr[(int)(vrt_ray.end_y)][(int)vrt_ray.end_x] != '1')
 	{
-		vert_ray.dx += vert_ray.step;
-		vert_ray.end_x += vert_ray.step;
-		vert_ray.dy = tan(player->angle) * vert_ray.dx;
-		vert_ray.end_y = player->pos_y + vert_ray.dy;
+		vrt_ray.dx += vrt_ray.step;
+		vrt_ray.end_x += vrt_ray.step;
+		vrt_ray.dy = tan(player->angle) * vrt_ray.dx;
+		vrt_ray.end_y = player->pos_y + vrt_ray.dy;
 	}
-	if (vert_ray.step == -1)
+	if (vrt_ray.step == -1)
 	{
-		vert_ray.dx += 0.000002;
-		vert_ray.end_x += 0.000002;
+		vrt_ray.dx += 0.000002;
+		vrt_ray.end_x += 0.000002;
 	}
 	else
 	{
-		vert_ray.dx -= 0.000002;
-		vert_ray.end_x -= 0.000002;
+		vrt_ray.dx -= 0.000002;
+		vrt_ray.end_x -= 0.000002;
 	}
-	vert_ray.dy = tan(player->angle) * vert_ray.dx;
-	vert_ray.end_y = player->pos_y + vert_ray.dy;
-	vert_ray.len = sqrt((vert_ray.dx * vert_ray.dx) + (vert_ray.dy * vert_ray.dy));
-	return (vert_ray);
+	vrt_ray.dy = tan(player->angle) * vrt_ray.dx;
+	vrt_ray.end_y = player->pos_y + vrt_ray.dy;
+	vrt_ray.len = sqrt((vrt_ray.dx * vrt_ray.dx) + (vrt_ray.dy * vrt_ray.dy));
+	return (vrt_ray);
 }
 
 t_ray	ft_ray_horiz_init(t_cub3d *cub3d, t_player *player)
 {
-	t_ray horiz_ray;
+	t_ray	hrz_ray;
 
-	horiz_ray.is_north_or_south = true;
+	hrz_ray.is_north_or_south = true;
 	if (player->angle >= PI)
 	{
-		horiz_ray.texture = cub3d->texture_array[0];
-		horiz_ray.end_y = floor(player->pos_y) - 0.000001;
-		horiz_ray.dy = horiz_ray.end_y - player->pos_y;
-		horiz_ray.step = -1;
+		hrz_ray.texture = cub3d->texture_array[0];
+		hrz_ray.end_y = floor(player->pos_y) - 0.000001;
+		hrz_ray.dy = hrz_ray.end_y - player->pos_y;
+		hrz_ray.step = -1;
 	}
 	else
 	{
-		horiz_ray.texture = cub3d->texture_array[1];
-		horiz_ray.end_y = ceil(player->pos_y) + 0.000001;
-		horiz_ray.dy = horiz_ray.end_y - player->pos_y;
-		horiz_ray.step = 1;
+		hrz_ray.texture = cub3d->texture_array[1];
+		hrz_ray.end_y = ceil(player->pos_y) + 0.000001;
+		hrz_ray.dy = hrz_ray.end_y - player->pos_y;
+		hrz_ray.step = 1;
 	}
-	horiz_ray.dx = horiz_ray.dy / tan(player->angle);
-	horiz_ray.end_x = player->pos_x + horiz_ray.dx;
-	return (horiz_ray);
+	hrz_ray.dx = hrz_ray.dy / tan(player->angle);
+	hrz_ray.end_x = player->pos_x + hrz_ray.dx;
+	return (hrz_ray);
 }
 
-t_ray	ft_ray_horiz(t_cub3d *cub3d, t_player *player, t_ray horiz_ray)
+t_ray	ft_ray_horiz(t_cub3d *cub3d, t_player *player, t_ray hrz_ray)
 {
-	while (horiz_ray.end_x >= 0 && horiz_ray.end_x <= cub3d->map->width && horiz_ray.end_y >= 0 && horiz_ray.end_y <= cub3d->map->height && cub3d->map->m_arr[(int)(horiz_ray.end_y)][(int)horiz_ray.end_x] != '1')
+	while (hrz_ray.end_x >= 0 && hrz_ray.end_x <= cub3d->map->width \
+		&& hrz_ray.end_y >= 0 && hrz_ray.end_y <= cub3d->map->height \
+		&& cub3d->map->m_arr[(int)(hrz_ray.end_y)][(int)hrz_ray.end_x] != '1')
 	{
-		horiz_ray.dy += horiz_ray.step;
-		horiz_ray.end_y += horiz_ray.step;
-		horiz_ray.dx = horiz_ray.dy / tan(player->angle);
-		horiz_ray.end_x = player->pos_x + horiz_ray.dx;
+		hrz_ray.dy += hrz_ray.step;
+		hrz_ray.end_y += hrz_ray.step;
+		hrz_ray.dx = hrz_ray.dy / tan(player->angle);
+		hrz_ray.end_x = player->pos_x + hrz_ray.dx;
 	}
-	if (horiz_ray.step == -1)
+	if (hrz_ray.step == -1)
 	{
-		horiz_ray.dy += 0.000002;
-		horiz_ray.end_y += 0.000002;
+		hrz_ray.dy += 0.000002;
+		hrz_ray.end_y += 0.000002;
 	}
 	else
 	{
-		horiz_ray.dy -= 0.000002;
-		horiz_ray.end_y -= 0.000002;
+		hrz_ray.dy -= 0.000002;
+		hrz_ray.end_y -= 0.000002;
 	}
-	horiz_ray.dx = horiz_ray.dy / tan(player->angle);
-	horiz_ray.end_y = player->pos_y + horiz_ray.dy;
-	horiz_ray.len = sqrt((horiz_ray.dx * horiz_ray.dx) + (horiz_ray.dy * horiz_ray.dy));
-	return (horiz_ray);
+	hrz_ray.dx = hrz_ray.dy / tan(player->angle);
+	hrz_ray.end_y = player->pos_y + hrz_ray.dy;
+	hrz_ray.len = sqrt((hrz_ray.dx * hrz_ray.dx) + (hrz_ray.dy * hrz_ray.dy));
+	return (hrz_ray);
 }
