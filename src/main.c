@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:56:56 by gstronge          #+#    #+#             */
-/*   Updated: 2024/10/01 11:41:46 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/10/02 11:53:56 by cstoia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ int main(int argc, char **argv)
 		cub3d = ft_make_structs(cub3d);
 		if (!cub3d)
 			return (1);
-		read_input(argv[1], cub3d->map);
-		check_input(cub3d, argv[1]);
+		ft_read_input(argv[1], cub3d->map);
+		ft_check_input(cub3d, argv[1]);
 		cub3d->mlx = mlx_init(WNDW_WIDTH, WNDW_HEIGHT, "Cub3D", false);
 		ft_load_textures(cub3d);
 		cub3d->main_img = mlx_new_image(cub3d->mlx, WNDW_WIDTH, WNDW_HEIGHT);
@@ -99,6 +99,7 @@ int main(int argc, char **argv)
 	else
 	{
 		printf("Error:\nInvalid number of arguments");
+		// ft_cleanup(cub3d);ß
 		exit(EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);

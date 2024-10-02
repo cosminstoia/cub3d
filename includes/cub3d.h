@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:44:25 by gstronge          #+#    #+#             */
-/*   Updated: 2024/09/29 17:15:38 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/10/02 11:56:28 by cstoia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_map
 	int				scale;
 	int				width_pix;
 	int				height_pix;
+	int				flag;
 } t_map;
 
 typedef struct s_player
@@ -112,14 +113,23 @@ void		ft_x_greater(t_line line, t_cub3d *cub3d, int step_x, int step_y);
 void		ft_y_greater(t_line line, t_cub3d *cub3d, int step_x, int step_y);
 
 // read_map.c
-int			read_input(char *input, t_map *map);
+int			ft_read_input(char *input, t_map *map);
 
 // check_map.c
-int			check_input(t_cub3d *cub3d,char *filename);
+int			ft_check_input(t_cub3d *cub3d,char *filename);
 
 // main_img.c
 void		ft_draw_main_img(t_cub3d *cub3d, t_ray ray, float orig_angle, int x);
 double		ft_correct_fisheye(t_cub3d *cub3d, t_ray ray, double orig_angle);
 void		ft_draw_clg_and_flr(t_cub3d *cub3d, int x, int y);
+
+// textures_colors.c
+void		ft_parse_textures_and_colors(t_map *map, char *line);
+
+// player.c
+int			ft_check_player_position(t_player *player, char c, int x, int y);
+
+// flood_fill.c
+void 		flood_fill(char **tab, int pos_y, int pos_x);
 
 #endif

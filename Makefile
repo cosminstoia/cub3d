@@ -26,7 +26,10 @@ SRCS		=	$(SRC_DIR)/main.c \
 				$(SRC_DIR)/read_input.c \
 				$(SRC_DIR)/check_input.c \
 				$(SRC_DIR)/raycasting.c \
-				$(SRC_DIR)/main_img.c 
+				$(SRC_DIR)/main_img.c \
+				$(SRC_DIR)/textures_colors.c \
+				$(SRC_DIR)/player.c \
+				$(SRC_DIR)/flood_fill.c
 
 # Objects
 OBJS		= $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
