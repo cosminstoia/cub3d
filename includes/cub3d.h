@@ -6,7 +6,7 @@
 /*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:44:25 by gstronge          #+#    #+#             */
-/*   Updated: 2024/10/02 13:58:21 by cstoia           ###   ########.fr       */
+/*   Updated: 2024/10/02 15:05:27 by cstoia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ typedef struct s_map
 	char			*so;
 	char			*we;
 	char			*ea;
-	int				floor[3];
-	int				ceiling[3];
 	unsigned long	hex_flr;
 	unsigned long	hex_clg;
 	char			**m_arr;

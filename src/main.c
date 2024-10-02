@@ -6,7 +6,7 @@
 /*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:56:56 by gstronge          #+#    #+#             */
-/*   Updated: 2024/10/02 13:59:48 by cstoia           ###   ########.fr       */
+/*   Updated: 2024/10/02 15:21:37 by cstoia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	ft_load_textures(t_cub3d *cub3d)
 	if (cub3d->texture_array[0] == NULL || cub3d->texture_array[1] == NULL \
 		|| cub3d->texture_array[2] == NULL || cub3d->texture_array[3] == NULL)
 	{
-		printf("error loading texture images\n");
+		printf("Error:\nLoading texture images\n");
 		return (-1);
 	}
 	return (0);
