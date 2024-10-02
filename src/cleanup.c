@@ -6,7 +6,7 @@
 /*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:19:07 by gstronge          #+#    #+#             */
-/*   Updated: 2024/10/02 18:33:18 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/10/02 19:28:36 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_cleanup(t_cub3d *cub3d, char *error_message, int errno)
 	if (error_message != NULL)
 		printf("%s", error_message);
 	if (cub3d == NULL)
-		exit(errno) ;
+		exit(errno);
 	if (cub3d->map)
 		ft_free_map(cub3d->map);
 	if (cub3d->player)
@@ -31,8 +31,8 @@ void	ft_cleanup(t_cub3d *cub3d, char *error_message, int errno)
 			mlx_delete_texture(cub3d->texture_array[i]);
 		i++;
 	}
-	// if (cub3d->mlx)
-	// 	mlx_terminate(cub3d->mlx);
+	if (cub3d->mlx)
+		mlx_terminate(cub3d->mlx);
 	free(cub3d);
 	exit(errno);
 }
@@ -49,6 +49,7 @@ void	ft_free_map(t_map *map)
 		free(map->ea);
 	if (map->m_arr)
 		ft_free_2d_array(map->m_arr, map->height);
+	free(map);
 }
 
 void	ft_free_2d_array(char **array, int height)
