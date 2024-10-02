@@ -6,7 +6,7 @@
 /*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:18:25 by gstronge          #+#    #+#             */
-/*   Updated: 2024/10/01 12:49:00 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:17:59 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ void	ft_draw_map(t_cub3d *cub3d, t_map *map)
 		{
 			if (map->m_arr[arr_y][arr_x] == '1')
 				ft_print_block(cub3d, arr_x, arr_y, 0xFFFFFF88);
-			else if (map->m_arr[arr_y][arr_x] == '0' || (map->m_arr[arr_y][arr_x] >= 'E' && map->m_arr[arr_y][arr_x] <= 'W'))
+			else if (map->m_arr[arr_y][arr_x] == '0'
+				|| (map->m_arr[arr_y][arr_x] >= 'E'
+					&& map->m_arr[arr_y][arr_x] <= 'W'))
 				ft_print_block(cub3d, arr_x, arr_y, 0x00000088);
 			arr_x++;
 		}
@@ -44,7 +46,7 @@ void	ft_print_block(t_cub3d *cub3d, int arr_x, int arr_y, u_int32_t colour)
 	x_start = cub3d->map->scale * arr_x;
 	y_start = cub3d->map->scale * arr_y;
 	while (y < cub3d->map->scale)
-	{		
+	{
 		x = 0;
 		while (x < cub3d->map->scale)
 		{
@@ -55,25 +57,32 @@ void	ft_print_block(t_cub3d *cub3d, int arr_x, int arr_y, u_int32_t colour)
 	}
 }
 
-void	ft_draw_player(t_cub3d *cub3d, t_player *player, int scale)
+static void	ft_draw_player_position(t_cub3d *cub3d, t_player *player, int scale)
 {
-	double orig_angle;
-	int i;
 	int	x;
 	int	y;
 
-	ft_draw_map(cub3d, cub3d->map);
 	x = 0;
 	while (x < 3)
 	{
 		y = 0;
 		while (y < 3)
 		{
-			mlx_put_pixel(cub3d->map_img, x + (player->pos_x * scale) -1, y + (player->pos_y * scale) -1, 0x00FF0088);
+			mlx_put_pixel(cub3d->map_img, x + (player->pos_x * scale) - 1, y
+				+ (player->pos_y * scale) - 1, 0x00FF0088);
 			y++;
 		}
-		x++;	
+		x++;
 	}
+}
+
+void	ft_draw_player(t_cub3d *cub3d, t_player *player, int scale)
+{
+	double	orig_angle;
+	int		i;
+
+	ft_draw_map(cub3d, cub3d->map);
+	ft_draw_player_position(cub3d, player, scale);
 	i = 0;
 	orig_angle = cub3d->player->angle;
 	cub3d->player->angle -= 0.5;
