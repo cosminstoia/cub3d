@@ -6,7 +6,7 @@
 /*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:27:20 by cstoia            #+#    #+#             */
-/*   Updated: 2024/10/02 11:58:46 by cstoia           ###   ########.fr       */
+/*   Updated: 2024/10/02 14:00:59 by cstoia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,23 +93,25 @@ static void	ft_check_texture_path(char *path)
 	close(fd);
 }
 
-int	ft_check_input(t_cub3d *cub3d, char *filename)
+void	ft_check_input(t_cub3d *cub3d, char *filename)
 {
+	int	is_surrounded;
+
+	is_surrounded = 1;
 	ft_check_filename(filename);
 	ft_check_charachetrs(cub3d);
 	ft_check_texture_path(cub3d->map->no);
 	ft_check_texture_path(cub3d->map->so);
 	ft_check_texture_path(cub3d->map->we);
 	ft_check_texture_path(cub3d->map->ea);
-	// flood_fill(cub3d->map->mapcopy, cub3d->player->pos_x,
-	// cub3d->player->pos_y);
-	// if (cub3d->map->mapcopy[(int)cub3d->player->pos_y][(int)cub3d->player->pos_x] != 'V')
-	// {
-	//     printf("Error: Flood fill failed! The player is not surrounded by walls.\n");
-	//    // exit(EXIT_FAILURE);
-	// }
-	// else
-	//     printf("Flood fill succeeded!\n");
+	flood_fill(cub3d->map->mapcopy, (int)cub3d->player->pos_y,
+		(int)cub3d->player->pos_x, &is_surrounded);
+	if (!is_surrounded)
+	{
+		printf("Error:\nThe player is not surrounded by walls.\n");
+		// ft_cleanup(cub3d);
+		exit(EXIT_FAILURE);
+	}
 	if (cub3d->map->flag != 6)
 	{
 		printf("Error:\nToo many or too less textures or colors\n");
@@ -118,5 +120,4 @@ int	ft_check_input(t_cub3d *cub3d, char *filename)
 	}
 	cub3d->map->width_pix = cub3d->map->scale * cub3d->map->width;
 	cub3d->map->height_pix = cub3d->map->scale * cub3d->map->height;
-	return (EXIT_SUCCESS);
 }
