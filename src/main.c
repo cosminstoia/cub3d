@@ -6,7 +6,7 @@
 /*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:56:56 by gstronge          #+#    #+#             */
-/*   Updated: 2024/10/02 18:33:45 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/10/02 19:27:01 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ t_cub3d	*ft_make_structs(t_cub3d *cub3d)
 	cub3d->texture_array[1] = NULL;
 	cub3d->texture_array[2] = NULL;
 	cub3d->texture_array[3] = NULL;
+	cub3d->mlx = NULL;
+	cub3d->map_img = NULL;
+	cub3d->main_img = NULL;
 	map = ft_calloc(1, sizeof(t_map));
 	if (!map)
 		ft_cleanup(cub3d, "Error\nmalloc failed\n", EXIT_FAILURE);
@@ -51,33 +54,36 @@ void	ft_load_textures(t_cub3d *cub3d)
 		ft_cleanup(cub3d, "Error\ntexture couldn't be loaded\n", EXIT_FAILURE);
 }
 
-void	leak_check(void)//remove ---------------------------------------------------------
-{
-	system("leaks cub3D");
-}
+// void	leak_check(void)//remove ---------------------------------------------------------
+// {
+// 	system("leaks cub3D");
+// }
 
 int	main(int argc, char **argv)
 {
 	t_cub3d		*cub3d;
 
-	atexit(leak_check);//remove ----------------------------------------------------------
+	// atexit(leak_check);//remove ----------------------------------------------------------
 	cub3d = NULL;
 	if (argc != 2)
 		ft_cleanup(cub3d, "Error\nInvalid number of arguments\n", EXIT_FAILURE);
 	cub3d = ft_make_structs(cub3d);
-	if (!cub3d)
-		return (1);
 	ft_read_input(cub3d, argv[1], cub3d->map);
 	ft_check_input(cub3d, argv[1]);
 	ft_load_textures(cub3d);
 	cub3d->mlx = mlx_init(WNDW_WIDTH, WNDW_HEIGHT, "Cub3D", true);
+	if (cub3d->mlx == NULL)
+		ft_cleanup(cub3d, "Error\nmlx library failure\n", EXIT_FAILURE);
 	cub3d->main_img = mlx_new_image(cub3d->mlx, WNDW_WIDTH, WNDW_HEIGHT);
+	if (cub3d->main_img == NULL)
+		ft_cleanup(cub3d, "Error\nmlx library failure\n", EXIT_FAILURE);
 	mlx_image_to_window(cub3d->mlx, cub3d->main_img, 0, 0);
 	cub3d->map_img = mlx_new_image(cub3d->mlx, MAP_SIZE, MAP_SIZE);
+	if (cub3d->map_img == NULL)
+		ft_cleanup(cub3d, "Error\nmlx library failure\n", EXIT_FAILURE);
 	mlx_image_to_window(cub3d->mlx, cub3d->map_img, 0, 0);
 	ft_draw_player(cub3d, cub3d->player, cub3d->map->scale);
 	mlx_loop_hook(cub3d->mlx, ft_move_player, cub3d);
 	mlx_loop(cub3d->mlx);
-	mlx_terminate(cub3d->mlx);
 	ft_cleanup(cub3d, NULL, EXIT_SUCCESS);
 }
