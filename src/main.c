@@ -44,7 +44,7 @@ int	ft_load_textures(t_cub3d *cub3d)
 	cub3d->texture_array[1] = mlx_load_png(cub3d->map->so);
 	cub3d->texture_array[2] = mlx_load_png(cub3d->map->we);
 	cub3d->texture_array[3] = mlx_load_png(cub3d->map->ea);
-	if (cub3d->texture_array[0] == NULL || cub3d->texture_array[1] == NULL
+	if (cub3d->texture_array[0] == NULL || cub3d->texture_array[1] == NULL \
 		|| cub3d->texture_array[2] == NULL || cub3d->texture_array[3] == NULL)
 	{
 		printf("error loading texture images\n");
@@ -55,33 +55,30 @@ int	ft_load_textures(t_cub3d *cub3d)
 
 int	main(int argc, char **argv)
 {
-	t_cub3d	*cub3d;
+	t_cub3d		*cub3d;
 
-	if (argc == 2)
-	{
-		cub3d = NULL;
-		cub3d = ft_make_structs(cub3d);
-		if (!cub3d)
-			return (1);
-		ft_read_input(argv[1], cub3d->map);
-		ft_check_input(cub3d, argv[1]);
-		cub3d->mlx = mlx_init(WNDW_WIDTH, WNDW_HEIGHT, "Cub3D", false);
-		ft_load_textures(cub3d);
-		cub3d->main_img = mlx_new_image(cub3d->mlx, WNDW_WIDTH, WNDW_HEIGHT);
-		mlx_image_to_window(cub3d->mlx, cub3d->main_img, 0, 0);
-		cub3d->map_img = mlx_new_image(cub3d->mlx, MAP_SIZE, MAP_SIZE);
-		mlx_image_to_window(cub3d->mlx, cub3d->map_img, 0, 0);
-		ft_draw_player(cub3d, cub3d->player, cub3d->map->scale);
-		mlx_loop_hook(cub3d->mlx, ft_move_player, cub3d);
-		mlx_loop(cub3d->mlx);
-		mlx_terminate(cub3d->mlx);
-		// ft_cleanup(cub3d);
-	}
-	else
+	if (argc != 2)
 	{
 		printf("Error:\nInvalid number of arguments");
 		// ft_cleanup(cub3d);ß
 		exit(EXIT_FAILURE);
 	}
+	cub3d = NULL;
+	cub3d = ft_make_structs(cub3d);
+	if (!cub3d)
+		return (1);
+	ft_read_input(argv[1], cub3d->map);
+	ft_check_input(cub3d, argv[1]);
+	cub3d->mlx = mlx_init(WNDW_WIDTH, WNDW_HEIGHT, "Cub3D", true);
+	ft_load_textures(cub3d);
+	cub3d->main_img = mlx_new_image(cub3d->mlx, WNDW_WIDTH, WNDW_HEIGHT);
+	mlx_image_to_window(cub3d->mlx, cub3d->main_img, 0, 0);
+	cub3d->map_img = mlx_new_image(cub3d->mlx, MAP_SIZE, MAP_SIZE);
+	mlx_image_to_window(cub3d->mlx, cub3d->map_img, 0, 0);
+	ft_draw_player(cub3d, cub3d->player, cub3d->map->scale);
+	mlx_loop_hook(cub3d->mlx, ft_move_player, cub3d);
+	mlx_loop(cub3d->mlx);
+	mlx_terminate(cub3d->mlx);
+	// ft_cleanup(cub3d);
 	return (EXIT_SUCCESS);
 }
