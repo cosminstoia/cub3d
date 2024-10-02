@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:56:56 by gstronge          #+#    #+#             */
 /*   Updated: 2024/10/01 17:29:13 by gstronge         ###   ########.fr       */
@@ -60,6 +60,7 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 	{
 		printf("Error:\nInvalid number of arguments");
+		// ft_cleanup(cub3d);ß
 		exit(EXIT_FAILURE);
 	}
 	cub3d = NULL;
