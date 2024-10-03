@@ -31,7 +31,8 @@ SRCS		=	$(SRC_DIR)/main.c \
 				$(SRC_DIR)/textures_colors.c \
 				$(SRC_DIR)/player.c \
 				$(SRC_DIR)/flood_fill.c \
-				$(SRC_DIR)/cleanup.c
+				$(SRC_DIR)/cleanup.c \
+				$(SRC_DIR)/rgb_to_hex.c
 
 # Objects
 OBJS		= $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)

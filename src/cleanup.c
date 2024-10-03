@@ -6,7 +6,7 @@
 /*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:19:07 by gstronge          #+#    #+#             */
-/*   Updated: 2024/10/03 14:24:35 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/10/03 16:41:48 by cstoia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	ft_free_map(t_map *map)
 		free(map->ea);
 	if (map->m_arr)
 		ft_free_2d_array(map->m_arr, map->height);
+	if (map->mapcopy)
+		ft_free_2d_array(map->mapcopy, map->height);
 	free(map);
 }
 
