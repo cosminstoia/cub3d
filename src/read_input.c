@@ -6,7 +6,7 @@
 /*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:17:32 by cstoia            #+#    #+#             */
-/*   Updated: 2024/10/02 19:54:42 by cstoia           ###   ########.fr       */
+/*   Updated: 2024/10/03 14:29:28 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	ft_map_size(t_cub3d *cub3d, t_map *map, char *line)
 	if (line[len - 1] == '\n')
 		len--;
 	if (len == 0)
-		ft_cleanup(cub3d, "Error:\nInvalid map!\n", EXIT_FAILURE);
+		ft_cleanup(cub3d, "Error\nInvalid map\n", EXIT_FAILURE);
 	if (len > map->width)
 		map->width = len;
 	map->height++;
@@ -67,8 +67,8 @@ static void	ft_fill_map_spaces(t_map *map)
 }
 
 // Function to process each line and append map data or parse textures/colors
-static void	ft_process_line(t_cub3d *cub3d, int fd, t_map *map,
-		char **concatenated_lines)
+static void	ft_process_line(t_cub3d *cub3d, int fd, t_map *map, \
+	char **concatenated_lines)
 {
 	char	*line;
 
