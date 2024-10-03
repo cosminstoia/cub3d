@@ -1,6 +1,6 @@
 NO ./textures/Bricks_22-512x512.png
 SO ./textures/Bricks_23-512x512.png
-WE ./textures/Bricks_24-512x512.png 
+WE ./textures/Bricks_24-512x512.png
 EA ./textures/Bricks_25-512x512.png
 
 F 220,100,0

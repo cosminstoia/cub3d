@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   read_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:17:32 by cstoia            #+#    #+#             */
 /*   Updated: 2024/10/03 14:29:28 by gstronge         ###   ########.fr       */
@@ -103,7 +103,7 @@ int	ft_read_input(t_cub3d *cub3d, char *input, t_map *map)
 	concatenated_lines = ft_calloc(1, 1);
 	fd = open(input, O_RDONLY);
 	if (fd == -1)
-		ft_cleanup(cub3d, "Error\nInvalid file\n", EXIT_FAILURE);
+		ft_cleanup(cub3d, "Error:\nInvalid file\n", EXIT_FAILURE);
 	ft_process_line(cub3d, fd, map, &concatenated_lines);
 	map->m_arr = ft_split(concatenated_lines, '\n');
 	map->mapcopy = ft_split(concatenated_lines, '\n');

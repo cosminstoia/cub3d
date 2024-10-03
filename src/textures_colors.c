@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   textures_colors.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:22:16 by cstoia            #+#    #+#             */
 /*   Updated: 2024/10/03 15:02:20 by gstronge         ###   ########.fr       */
