@@ -6,7 +6,6 @@ CC			= cc
 
 # Compilation flags
 CFLAGS		= -Wall -Wextra -Werror -Wunreachable-code -Ofast
-# CFLAGS		= -fsanitize=address -Wall -Wextra -Werror -Wunreachable-code -Ofast
 
 # Include libraries and header files
 LIBMLX	= ./MLX42
@@ -36,20 +35,24 @@ SRCS		=	$(SRC_DIR)/main.c \
 # Objects
 OBJS		= $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
-all: libmlx $(NAME)
+all: $(NAME)
+# all: libmlx $(NAME)
 
-libmlx: $(LIBMLX)
-	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+# libmlx: $(LIBMLX)
+# 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
 # Build project
-$(NAME): $(OBJS) $(LIBFT)
+$(NAME): $(OBJS) $(LIBFT) $(LIBMLX)/build/libmlx42.a
 	$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME) $(LIBFT)
 	@echo "$(NAME) built successfully"
 
 # add libmlx
-$(LIBMLX):
-	@touch .gitmodules
-	@git submodule add -f https://github.com/codam-coding-college/MLX42.git
+$(LIBMLX)/build/libmlx42.a:
+	@if [ ! -d "$(LIBMLX)"]; then\
+		touch .gitmodules\
+		git submodule add -f https://github.com/codam-coding-college/MLX42.git;\
+	fi
+	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4;
 
 # Compile source files into object files
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
