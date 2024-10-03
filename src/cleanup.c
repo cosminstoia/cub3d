@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:19:07 by gstronge          #+#    #+#             */
-/*   Updated: 2024/10/02 19:28:36 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/10/02 19:56:10 by cstoia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,12 @@ void	ft_free_2d_array(char **array, int height)
 			free(array[i]);
 		i++;
 	}
-	free (array);
+	free(array);
 }
 
 void	ft_free_split(char **split)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (split[i] != NULL)
@@ -76,5 +76,5 @@ void	ft_free_split(char **split)
 		free(split[i]);
 		i++;
 	}
-	free(split);	
+	free(split);
 }
