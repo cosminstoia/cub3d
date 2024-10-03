@@ -6,7 +6,7 @@
 /*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:19:07 by gstronge          #+#    #+#             */
-/*   Updated: 2024/10/02 19:28:36 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/10/03 14:24:35 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	ft_free_2d_array(char **array, int height)
 
 void	ft_free_split(char **split)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (split[i] != NULL)

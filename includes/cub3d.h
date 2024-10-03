@@ -6,7 +6,7 @@
 /*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:44:25 by gstronge          #+#    #+#             */
-/*   Updated: 2024/10/02 18:25:40 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/10/03 14:21:51 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ typedef struct s_map
 	int				scale;
 	int				width_pix;
 	int				height_pix;
-	int				flag;
+	int				cf_flag;
+	int				texture_flag;
 } t_map;
 
 typedef struct s_player
@@ -123,10 +124,10 @@ double		ft_correct_fisheye(t_cub3d *cub3d, t_ray ray, double orig_angle);
 void		ft_draw_clg_and_flr(t_cub3d *cub3d, int x, int y);
 
 // textures_colors.c
-void		ft_parse_textures_and_colors(t_cub3d *cub3d, t_map *map, char *line);
+void		ft_parse_textures_and_colors(t_cub3d *cub3d, char *line);
 
 // player.c
-int			ft_check_player_position(t_player *player, char c, int x, int y);
+int			ft_check_player_position(t_cub3d *cub3d, char c, int x, int y);
 
 // flood_fill.c
 void 		flood_fill(char **tab, int pos_y, int pos_x, int *is_surrounded);

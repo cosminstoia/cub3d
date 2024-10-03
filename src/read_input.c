@@ -6,14 +6,14 @@
 /*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:17:32 by cstoia            #+#    #+#             */
-/*   Updated: 2024/10/02 18:20:42 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/10/03 14:29:28 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
 // Function to get the size of the map
-static void	ft_map_size(t_map *map, char *line)
+static void	ft_map_size(t_cub3d *cub3d, t_map *map, char *line)
 {
 	int	len;
 
@@ -21,11 +21,7 @@ static void	ft_map_size(t_map *map, char *line)
 	if (line[len - 1] == '\n')
 		len--;
 	if (len == 0)
-	{
-		printf("Error\nInvalid map!\n");
-		// ft_cleanup();
-		exit(EXIT_FAILURE);
-	}
+		ft_cleanup(cub3d, "Error\nInvalid map\n", EXIT_FAILURE);
 	if (len > map->width)
 		map->width = len;
 	map->height++;
@@ -71,7 +67,8 @@ static void	ft_fill_map_spaces(t_map *map)
 }
 
 // Function to process each line and append map data or parse textures/colors
-static void	ft_process_line(t_cub3d *cub3d, int fd, t_map *map, char **concatenated_lines)
+static void	ft_process_line(t_cub3d *cub3d, int fd, t_map *map, \
+	char **concatenated_lines)
 {
 	char	*line;
 
@@ -85,12 +82,12 @@ static void	ft_process_line(t_cub3d *cub3d, int fd, t_map *map, char **concatena
 			continue ;
 		}
 		if (ft_strncmp(line, "1", 1) != 0 && ft_strncmp(line, " ", 1) != 0)
-			ft_parse_textures_and_colors(cub3d, map, line);
+			ft_parse_textures_and_colors(cub3d, line);
 		else
 		{
 			*concatenated_lines = ft_strjoin_and_free(*concatenated_lines,
 					line);
-			ft_map_size(map, line);
+			ft_map_size(cub3d, map, line);
 		}
 		free(line);
 		line = get_next_line(fd);

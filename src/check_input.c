@@ -6,7 +6,7 @@
 /*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:27:20 by cstoia            #+#    #+#             */
-/*   Updated: 2024/10/02 18:31:24 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/10/03 15:01:02 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,12 @@ int	ft_find_line_width(const char *map)
 	return (max_width);
 }
 
-static void	ft_check_filename(const char *filename)
+static void	ft_check_filename(t_cub3d *cub3d, const char *filename)
 {
 	const char	*extension = ft_strrchr(filename, '.');
 
 	if (extension && ft_strncmp(extension, ".cub", 4) != 0)
-	{
-		printf("Error\nFile extension must be .cub\n");
-		// ft_cleanup();
-		exit(EXIT_FAILURE);
-	}
+		ft_cleanup(cub3d, "Error\nFile extension must be .cub\n", EXIT_FAILURE);
 }
 
 static void	ft_check_charachetrs(t_cub3d *cub3d)
@@ -66,30 +62,29 @@ static void	ft_check_charachetrs(t_cub3d *cub3d)
 		while (y < width)
 		{
 			c = cub3d->map->m_arr[x][y];
-			ft_check_player_position(cub3d->player, c, x, y);
+			ft_check_player_position(cub3d, c, x, y);
 			y++;
 		}
 		x++;
 	}
 	if (cub3d->player->p_flag == 0)
-	{
-		printf("Error\nNumber of players invalid!\n");
-		// ft_cleanup();
-		exit(EXIT_FAILURE);
-	}
+		ft_cleanup(cub3d, "Error\nNumber of players invalid\n", EXIT_FAILURE);
 }
 
-static void	ft_check_texture_path(char *path)
+static void ft_check_texture_path(t_cub3d *cub3d, char *path)
 {
-	int	fd;
+	int			fd;
+	const char	*extension;
 
+	if (path == NULL)
+		ft_cleanup(cub3d, "Error\nInvalid texture path\n", EXIT_FAILURE);
+	extension = ft_strrchr(path, '.');
+	if (extension == NULL || ft_strncmp(extension, ".png", 4) != 0)
+		ft_cleanup(cub3d, "Error\nTexture extension must be .png\n",
+			EXIT_FAILURE);
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
-	{
-		printf("Error\nInvalid path %s\n", path);
-		// ft_cleanup();
-		exit(EXIT_FAILURE);
-	}
+		ft_cleanup(cub3d, "Error\nInvalid path\n", EXIT_FAILURE);
 	close(fd);
 }
 
@@ -98,27 +93,21 @@ void	ft_check_input(t_cub3d *cub3d, char *filename)
 	int	is_surrounded;
 
 	is_surrounded = 1;
-	ft_check_filename(filename);
+	ft_check_filename(cub3d, filename);
 	ft_check_charachetrs(cub3d);
-	ft_check_texture_path(cub3d->map->no);
-	ft_check_texture_path(cub3d->map->so);
-	ft_check_texture_path(cub3d->map->we);
-	ft_check_texture_path(cub3d->map->ea);
+	ft_check_texture_path(cub3d, cub3d->map->no);
+	ft_check_texture_path(cub3d, cub3d->map->so);
+	ft_check_texture_path(cub3d, cub3d->map->we);
+	ft_check_texture_path(cub3d, cub3d->map->ea);
 	flood_fill(cub3d->map->mapcopy, (int)cub3d->player->pos_y,
 		(int)cub3d->player->pos_x, &is_surrounded);
 	ft_free_2d_array(cub3d->map->mapcopy, cub3d->map->height);
 	if (!is_surrounded)
-	{
-		printf("Error\nThe player is not surrounded by walls.\n");
-		// ft_cleanup(cub3d);
-		exit(EXIT_FAILURE);
-	}
-	if (cub3d->map->flag != 6)
-	{
-		printf("Error\nToo many or too less textures or colors\n");
-		// ft_cleanup(cub3d);
-		exit(EXIT_FAILURE);
-	}
+		ft_cleanup(cub3d, "Error\nThe player is not surrounded by walls\n", \
+				EXIT_FAILURE);
+	if (cub3d->map->cf_flag != 2 || cub3d->map->texture_flag != 4)
+		ft_cleanup(cub3d, "Error\nToo many or too less textures or colors\n", \
+				EXIT_FAILURE);
 	cub3d->map->width_pix = cub3d->map->scale * cub3d->map->width;
 	cub3d->map->height_pix = cub3d->map->scale * cub3d->map->height;
 }
