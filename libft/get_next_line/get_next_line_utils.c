@@ -6,7 +6,7 @@
 /*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 14:11:39 by cstoia            #+#    #+#             */
-/*   Updated: 2024/04/17 17:30:32 by cstoia           ###   ########.fr       */
+/*   Updated: 2024/10/03 17:53:51 by cstoia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ char	*ft_gnl_strjoin(char *s1, char *s2)
 	char	*str;
 	int		count;
 
-	str = (char *)malloc((ft_gnl_strlen(s1) + ft_gnl_strlen(s2) + 1) * sizeof(char));
+	str = (char *)malloc((ft_gnl_strlen(s1) + ft_gnl_strlen(s2) + 1)
+			* sizeof(char));
 	if (!str)
 		return (NULL);
 	count = 0;

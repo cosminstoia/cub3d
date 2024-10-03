@@ -6,7 +6,7 @@
 /*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:27:20 by cstoia            #+#    #+#             */
-/*   Updated: 2024/10/03 15:01:02 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/10/03 16:21:34 by cstoia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void	ft_check_charachetrs(t_cub3d *cub3d)
 		ft_cleanup(cub3d, "Error\nNumber of players invalid\n", EXIT_FAILURE);
 }
 
-static void ft_check_texture_path(t_cub3d *cub3d, char *path)
+static void	ft_check_texture_path(t_cub3d *cub3d, char *path)
 {
 	int			fd;
 	const char	*extension;
@@ -102,12 +102,13 @@ void	ft_check_input(t_cub3d *cub3d, char *filename)
 	flood_fill(cub3d->map->mapcopy, (int)cub3d->player->pos_y,
 		(int)cub3d->player->pos_x, &is_surrounded);
 	ft_free_2d_array(cub3d->map->mapcopy, cub3d->map->height);
+	cub3d->map->mapcopy = NULL;
 	if (!is_surrounded)
-		ft_cleanup(cub3d, "Error\nThe player is not surrounded by walls\n", \
-				EXIT_FAILURE);
+		ft_cleanup(cub3d, "Error\nThe player is not surrounded by walls\n",
+			EXIT_FAILURE);
 	if (cub3d->map->cf_flag != 2 || cub3d->map->texture_flag != 4)
-		ft_cleanup(cub3d, "Error\nToo many or too less textures or colors\n", \
-				EXIT_FAILURE);
+		ft_cleanup(cub3d, "Error\nToo many or too less textures or colors\n",
+			EXIT_FAILURE);
 	cub3d->map->width_pix = cub3d->map->scale * cub3d->map->width;
 	cub3d->map->height_pix = cub3d->map->scale * cub3d->map->height;
 }
