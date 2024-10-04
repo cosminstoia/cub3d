@@ -39,18 +39,15 @@ OBJS		= $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 all: $(NAME)
 # all: libmlx $(NAME)
 
-# libmlx: $(LIBMLX)
-# 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
-
 # Build project
-$(NAME): $(OBJS) $(LIBFT) $(LIBMLX)/build/libmlx42.a
+$(NAME):  $(LIBMLX)/build/libmlx42.a $(OBJS) $(LIBFT)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME) $(LIBFT)
 	@echo "$(NAME) built successfully"
 
 # add libmlx
 $(LIBMLX)/build/libmlx42.a:
-	@if [ ! -d "$(LIBMLX)"]; then\
-		touch .gitmodules\
+	@if [ ! -d "$(LIBMLX)" ]; then\
+		touch .gitmodules;\
 		git submodule add -f https://github.com/codam-coding-college/MLX42.git;\
 	fi
 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4;
