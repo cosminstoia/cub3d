@@ -6,7 +6,7 @@
 /*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:17:32 by cstoia            #+#    #+#             */
-/*   Updated: 2024/10/04 15:58:30 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/10/04 17:34:55 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,17 @@ static void	ft_expand_line(t_cub3d *cub3d, char **line, int target_width)
 }
 
 // Function to iterate through the map and expand lines where necessary
-static void	ft_fill_map_spaces(t_cub3d *cub3d, t_map *map)
+static void	ft_fill_map_spaces(t_cub3d *cub3d, char **map)
 {
 	int	i;
 	int	line_length;
 
 	i = 0;
-	while (map->m_arr[i])
+	while (map[i])
 	{
-		line_length = ft_strlen(map->m_arr[i]);
-		if (line_length < map->width)
-			ft_expand_line(cub3d, &map->m_arr[i], map->width);
+		line_length = ft_strlen(map[i]);
+		if (line_length < cub3d->map->width)
+			ft_expand_line(cub3d, &map[i], cub3d->map->width);
 		i++;
 	}
 }
@@ -75,25 +75,30 @@ static void	ft_process_line(t_cub3d *cub3d, int fd, t_map *map, \
 	char	*line;
 
 	line = get_next_line(fd);
-	while (line != NULL)
+	if (line == NULL)
+		ft_cleanup(cub3d, "Error:\nMalloc failed\n", EXIT_FAILURE);
+	while (line && line[0] != '\0')
 	{
-		if (line[0] == '\n')
+		if (line[0] != '\n')
 		{
-			free(line);
-			line = get_next_line(fd);
-			continue ;
-		}
-		if (ft_strncmp(line, "1", 1) != 0 && ft_strncmp(line, " ", 1) != 0)
-			ft_parse_textures_and_colors(cub3d, line);
-		else
-		{
-			*concatenated_lines = ft_strjoin_and_free(*concatenated_lines,
-					line);
-			ft_map_size(cub3d, map, line);
+			
+			if (ft_strncmp(line, "0", 1) != 0 && ft_strncmp(line, "1", 1) != 0\
+					&& ft_strncmp(line, " ", 1) != 0)
+				ft_parse_textures_and_colors(cub3d, line);
+			else
+			{
+				*concatenated_lines = ft_strjoin_and_free(*concatenated_lines,
+						line);
+				ft_map_size(cub3d, map, line);
+			}
 		}
 		free(line);
 		line = get_next_line(fd);
+		if (line == NULL)
+			ft_cleanup(cub3d, "Error:\nMalloc failed\n", EXIT_FAILURE);
 	}
+	if (line[0] == '\0')
+		free (line);
 }
 
 // Main function to read input file, process lines, and finalize the map
@@ -113,7 +118,8 @@ int	ft_read_input(t_cub3d *cub3d, char *input, t_map *map)
 	map->mapcopy = ft_split(concatenated_lines, '\n');
 	if (!map->mapcopy)
 		ft_cleanup(cub3d, "Error:\nMalloc failed\n", EXIT_FAILURE);
-	ft_fill_map_spaces(cub3d, map);
+	ft_fill_map_spaces(cub3d, map->m_arr);
+	ft_fill_map_spaces(cub3d, map->mapcopy);
 	if (map->width > map->height)
 		map->scale = MAP_SIZE / map->width;
 	else

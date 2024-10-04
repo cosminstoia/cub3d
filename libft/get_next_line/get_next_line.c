@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 14:11:06 by cstoia            #+#    #+#             */
-/*   Updated: 2024/04/17 17:30:33 by cstoia           ###   ########.fr       */
+/*   Updated: 2024/10/04 17:24:48 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*ft_extract_line(char *string)
 
 	i = 0;
 	if (!string[i] || string[i] == '\0')
-		return (NULL);
+		return (ft_empty_string(string));
 	while (string[i] != '\0' && string[i] != '\n')
 		i++;
 	if (string[i] == '\n')

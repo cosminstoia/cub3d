@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+         #
+#    By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/03 21:02:17 by cstoia            #+#    #+#              #
-#    Updated: 2024/09/22 17:48:39 by cstoia           ###   ########.fr        #
+#    Updated: 2024/10/04 17:26:59 by gstronge         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ INCLUDES = ./libft.h
 GNL = \
 		$(GNL_DIR)/get_next_line.c \
 		$(GNL_DIR)/get_next_line_utils.c \
-		$(GNL_DIR)/get_next_line.c
+		$(GNL_DIR)/get_next_line.c \
+		$(GNL_DIR)/get_next_line_cub3d.c
 
 CFILES = \
 		./ft_atoi.c \

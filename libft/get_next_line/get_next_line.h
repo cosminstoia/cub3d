@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 14:12:11 by cstoia            #+#    #+#             */
-/*   Updated: 2024/04/17 19:40:49 by cstoia           ###   ########.fr       */
+/*   Updated: 2024/10/04 17:25:42 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ char	*ft_read_file(int fd, char *string);
 char	*ft_extract_line(char *string);
 char	*ft_update_string(char *string);
 char	*get_next_line(int fd);
+char	*ft_empty_string(char *line);
 
 #endif
