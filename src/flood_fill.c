@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flood_fill.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:52:02 by cstoia            #+#    #+#             */
-/*   Updated: 2024/10/02 13:57:20 by cstoia           ###   ########.fr       */
+/*   Updated: 2024/10/04 14:07:11 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	flood_fill(char **tab, int pos_y, int pos_x, int *is_surrounded)
 		&& tab[pos_y][pos_x] != 'W')
 		return ;
 	tab[pos_y][pos_x] = 'V';
-	if (pos_x == 0 || pos_y == 0 || tab[pos_y + 1] == NULL || tab[pos_y][pos_x
-		+ 1] == '\0')
+	if (pos_x == 0 || pos_y == 0 || tab[pos_y + 1] == NULL || tab[pos_y][pos_x \
+		+ 1] == '\0' || tab[pos_y][pos_x + 1] == ' ')
 		*is_surrounded = 0;
 	flood_fill(tab, pos_y, pos_x - 1, is_surrounded);
 	flood_fill(tab, pos_y, pos_x + 1, is_surrounded);

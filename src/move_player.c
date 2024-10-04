@@ -6,7 +6,7 @@
 /*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 11:27:27 by gstronge          #+#    #+#             */
-/*   Updated: 2024/10/01 15:05:58 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/10/04 14:07:33 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ int	ft_no_wall_crash(t_cub3d *cub3d, double x_adjust, double y_adjust)
 
 	new_pos_x = cub3d->player->pos_x + x_adjust;
 	new_pos_y = cub3d->player->pos_y + y_adjust;
-	if (cub3d->map->m_arr[(int)new_pos_y][(int)new_pos_x] == '1')
+	if (cub3d->map->m_arr[(int)new_pos_y][(int)new_pos_x] == '1' || \
+			cub3d->map->m_arr[(int)new_pos_y][(int)new_pos_x] == ' ' )
 		return (0);
 	return (1);
 }
