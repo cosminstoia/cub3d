@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:17:32 by cstoia            #+#    #+#             */
-/*   Updated: 2024/10/04 17:34:55 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/10/04 17:47:04 by cstoia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ static void	ft_fill_map_spaces(t_cub3d *cub3d, char **map)
 }
 
 // Function to process each line and append map data or parse textures/colors
-static void	ft_process_line(t_cub3d *cub3d, int fd, t_map *map, \
-	char **concatenated_lines)
+static void	ft_process_line(t_cub3d *cub3d, int fd, t_map *map,
+		char **con_lines)
 {
 	char	*line;
 
@@ -81,14 +81,12 @@ static void	ft_process_line(t_cub3d *cub3d, int fd, t_map *map, \
 	{
 		if (line[0] != '\n')
 		{
-			
-			if (ft_strncmp(line, "0", 1) != 0 && ft_strncmp(line, "1", 1) != 0\
-					&& ft_strncmp(line, " ", 1) != 0)
+			if (ft_strncmp(line, "0", 1) != 0 && ft_strncmp(line, "1", 1) != 0
+				&& ft_strncmp(line, " ", 1) != 0)
 				ft_parse_textures_and_colors(cub3d, line);
 			else
 			{
-				*concatenated_lines = ft_strjoin_and_free(*concatenated_lines,
-						line);
+				*con_lines = ft_strjoin_and_free(*con_lines, line);
 				ft_map_size(cub3d, map, line);
 			}
 		}
@@ -98,7 +96,7 @@ static void	ft_process_line(t_cub3d *cub3d, int fd, t_map *map, \
 			ft_cleanup(cub3d, "Error:\nMalloc failed\n", EXIT_FAILURE);
 	}
 	if (line[0] == '\0')
-		free (line);
+		free(line);
 }
 
 // Main function to read input file, process lines, and finalize the map

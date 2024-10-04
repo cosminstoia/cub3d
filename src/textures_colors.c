@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures_colors.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:22:16 by cstoia            #+#    #+#             */
-/*   Updated: 2024/10/04 16:05:35 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/10/04 17:59:48 by cstoia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	ft_parse_rgb_values(t_cub3d *cub3d, char **rgb_values,
 	i = -1;
 	while (++i < 3)
 	{
-		if (ft_strlen(rgb_values[i]) > 3)
+		if (ft_strlen(rgb_values[i]) > 4)
 			ft_cleanup(cub3d, "Error\nInvalid RGB codes.\n", EXIT_FAILURE);
 		j = -1;
 		while (rgb_values[i][++j])
