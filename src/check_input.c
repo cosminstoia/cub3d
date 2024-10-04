@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 14:27:20 by cstoia            #+#    #+#             */
-/*   Updated: 2024/10/03 16:21:34 by cstoia           ###   ########.fr       */
+/*   Updated: 2024/10/04 14:41:11 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	ft_check_input(t_cub3d *cub3d, char *filename)
 	ft_check_texture_path(cub3d, cub3d->map->so);
 	ft_check_texture_path(cub3d, cub3d->map->we);
 	ft_check_texture_path(cub3d, cub3d->map->ea);
-	flood_fill(cub3d->map->mapcopy, (int)cub3d->player->pos_y,
+	ft_flood_fill(cub3d->map->mapcopy, (int)cub3d->player->pos_y,
 		(int)cub3d->player->pos_x, &is_surrounded);
 	ft_free_2d_array(cub3d->map->mapcopy, cub3d->map->height);
 	cub3d->map->mapcopy = NULL;
@@ -111,4 +111,6 @@ void	ft_check_input(t_cub3d *cub3d, char *filename)
 			EXIT_FAILURE);
 	cub3d->map->width_pix = cub3d->map->scale * cub3d->map->width;
 	cub3d->map->height_pix = cub3d->map->scale * cub3d->map->height;
+	cub3d->player->pos_x += 0.01;
+	cub3d->player->pos_y += 0.01;
 }

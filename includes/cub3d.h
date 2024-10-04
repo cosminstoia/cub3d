@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:44:25 by gstronge          #+#    #+#             */
-/*   Updated: 2024/10/03 17:37:46 by cstoia           ###   ########.fr       */
+/*   Updated: 2024/10/04 14:40:26 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ int					ft_check_player_position(t_cub3d *cub3d, char c, int x,
 						int y);
 
 // flood_fill.c
-void				flood_fill(char **tab, int pos_y, int pos_x,
+void				ft_flood_fill(char **tab, int pos_y, int pos_x,
 						int *is_surrounded);
 
 // cleanup.c
