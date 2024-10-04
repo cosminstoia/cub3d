@@ -6,7 +6,7 @@
 /*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:22:16 by cstoia            #+#    #+#             */
-/*   Updated: 2024/10/04 14:08:05 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/10/04 16:05:35 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static void	ft_assign_texture(t_cub3d *cub3d, char **split_line,
 	char	*temp;
 
 	temp = ft_strtrim(split_line[1], "\n");
+	if (temp == NULL)
+		ft_cleanup(cub3d, "Error\nMalloc failed\n", EXIT_FAILURE);
 	free(*texture_ptr);
 	*texture_ptr = temp;
 	cub3d->map->texture_flag++;
@@ -51,6 +53,8 @@ static int	ft_parse_rgb_values(t_cub3d *cub3d, char **rgb_values,
 	i = -1;
 	while (++i < 3)
 	{
+		if (ft_strlen(rgb_values[i]) > 3)
+			ft_cleanup(cub3d, "Error\nInvalid RGB codes.\n", EXIT_FAILURE);
 		j = -1;
 		while (rgb_values[i][++j])
 		{
@@ -97,19 +101,29 @@ static void	ft_parse_color(t_cub3d *cub3d, char **rgb_values, char flag)
 // Main function to parse textures and colors
 void	ft_parse_textures_and_colors(t_cub3d *cub3d, char *line)
 {
-	char	**split_line;
+	char	**split_lne;
+	char	**rgb_values;
 
-	split_line = ft_split(line, ' ');
-	if (split_line == NULL)
+	split_lne = ft_split(line, ' ');
+	if (split_lne == NULL)
 		ft_cleanup(cub3d, "Error\nMalloc failed\n", EXIT_FAILURE);
-	if (!split_line[1] || ft_strlen(split_line[0]) > 2 || split_line[2] != NULL)
+	if (!split_lne[1] || ft_strlen(split_lne[0]) > 2 || split_lne[2] != NULL)
 		ft_cleanup(cub3d, "Error\nInvalid identifiers.\n", EXIT_FAILURE);
-	if (!ft_strncmp(split_line[0], "F", 2) && ft_strlen(split_line[0]) == 1)
-		ft_parse_color(cub3d, ft_split(split_line[1], ','), 'F');
-	else if (!ft_strncmp(split_line[0], "C", 2) && \
-			ft_strlen(split_line[0]) == 1)
-		ft_parse_color(cub3d, ft_split(split_line[1], ','), 'C');
+	if (!ft_strncmp(split_lne[0], "F", 2) && ft_strlen(split_lne[0]) == 1)
+	{
+		rgb_values = ft_split(split_lne[1], ',');
+		if (!rgb_values)
+			ft_cleanup(cub3d, "Error:\nMalloc failed\n", EXIT_FAILURE);
+		ft_parse_color(cub3d, rgb_values, 'F');
+	}
+	else if (!ft_strncmp(split_lne[0], "C", 2) && ft_strlen(split_lne[0]) == 1)
+	{
+		rgb_values = ft_split(split_lne[1], ',');
+		if (!rgb_values)
+			ft_cleanup(cub3d, "Error:\nMalloc failed\n", EXIT_FAILURE);
+		ft_parse_color(cub3d, rgb_values, 'C');
+	}
 	else
-		ft_parse_texture(cub3d, split_line);
-	ft_free_split(split_line);
+		ft_parse_texture(cub3d, split_lne);
+	ft_free_split(split_lne);
 }

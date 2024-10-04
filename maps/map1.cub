@@ -1,10 +1,10 @@
 NO ./textures/Bricks_22-512x512.png
 SO ./textures/Bricks_23-512x512.png
-WE ./textures/Bricks_24-512x512.png
-E1A ./textures/Bricks_25-512x512.png
+WE ./textures/Stonewall_Texture.png
+EA ./textures/Bricks_25-512x512.png
 
-F 220,100,0
-Ca 225,30,0
+F 220,100,10
+C 225,30,0
 
         1111111111111111111111111
         1000000000110000000000001

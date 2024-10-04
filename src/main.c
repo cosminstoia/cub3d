@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 17:56:56 by gstronge          #+#    #+#             */
-/*   Updated: 2024/10/03 16:00:17 by cstoia           ###   ########.fr       */
+/*   Updated: 2024/10/04 16:03:59 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,10 @@ void	ft_load_textures(t_cub3d *cub3d)
 		ft_cleanup(cub3d, "Error\ntexture couldn't be loaded\n", EXIT_FAILURE);
 }
 
-void	leak_check(void)//remove ---------------------------------------------------------
-{
-	system("leaks cub3D");
-}
-
 int	main(int argc, char **argv)
 {
 	t_cub3d	*cub3d;
 
-	atexit(leak_check);//remove ----------------------------------------------------------
 	cub3d = NULL;
 	if (argc != 2)
 		ft_cleanup(cub3d, "Error\nInvalid number of arguments\n", EXIT_FAILURE);

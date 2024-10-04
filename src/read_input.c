@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gstronge <gstronge@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:17:32 by cstoia            #+#    #+#             */
-/*   Updated: 2024/10/03 14:29:28 by gstronge         ###   ########.fr       */
+/*   Updated: 2024/10/04 15:58:30 by gstronge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,14 @@ static void	ft_map_size(t_cub3d *cub3d, t_map *map, char *line)
 }
 
 // Function to expand a single line to the map's width by filling with spaces
-static void	ft_expand_line(char **line, int target_width)
+static void	ft_expand_line(t_cub3d *cub3d, char **line, int target_width)
 {
 	char	*new_line;
 	int		j;
 
 	new_line = ft_calloc(target_width + 1, sizeof(char));
+	if (!new_line)
+		ft_cleanup(cub3d, "Error\nMalloc failed\n", EXIT_FAILURE);
 	j = 0;
 	while ((*line)[j])
 	{
@@ -51,7 +53,7 @@ static void	ft_expand_line(char **line, int target_width)
 }
 
 // Function to iterate through the map and expand lines where necessary
-static void	ft_fill_map_spaces(t_map *map)
+static void	ft_fill_map_spaces(t_cub3d *cub3d, t_map *map)
 {
 	int	i;
 	int	line_length;
@@ -61,7 +63,7 @@ static void	ft_fill_map_spaces(t_map *map)
 	{
 		line_length = ft_strlen(map->m_arr[i]);
 		if (line_length < map->width)
-			ft_expand_line(&map->m_arr[i], map->width);
+			ft_expand_line(cub3d, &map->m_arr[i], map->width);
 		i++;
 	}
 }
@@ -106,8 +108,12 @@ int	ft_read_input(t_cub3d *cub3d, char *input, t_map *map)
 		ft_cleanup(cub3d, "Error:\nInvalid file\n", EXIT_FAILURE);
 	ft_process_line(cub3d, fd, map, &concatenated_lines);
 	map->m_arr = ft_split(concatenated_lines, '\n');
+	if (!map->m_arr)
+		ft_cleanup(cub3d, "Error:\nMalloc failed\n", EXIT_FAILURE);
 	map->mapcopy = ft_split(concatenated_lines, '\n');
-	ft_fill_map_spaces(map);
+	if (!map->mapcopy)
+		ft_cleanup(cub3d, "Error:\nMalloc failed\n", EXIT_FAILURE);
+	ft_fill_map_spaces(cub3d, map);
 	if (map->width > map->height)
 		map->scale = MAP_SIZE / map->width;
 	else
