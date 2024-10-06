@@ -6,7 +6,7 @@
 /*   By: cstoia <cstoia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:17:32 by cstoia            #+#    #+#             */
-/*   Updated: 2024/10/04 17:47:04 by cstoia           ###   ########.fr       */
+/*   Updated: 2024/10/06 12:46:33 by cstoia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,16 +108,18 @@ int	ft_read_input(t_cub3d *cub3d, char *input, t_map *map)
 	concatenated_lines = ft_calloc(1, 1);
 	fd = open(input, O_RDONLY);
 	if (fd == -1)
-		ft_cleanup(cub3d, "Error:\nInvalid file\n", EXIT_FAILURE);
+		ft_cleanup(cub3d, "Error\nInvalid file\n", EXIT_FAILURE);
 	ft_process_line(cub3d, fd, map, &concatenated_lines);
 	map->m_arr = ft_split(concatenated_lines, '\n');
 	if (!map->m_arr)
-		ft_cleanup(cub3d, "Error:\nMalloc failed\n", EXIT_FAILURE);
+		ft_cleanup(cub3d, "Error\nMalloc failed\n", EXIT_FAILURE);
 	map->mapcopy = ft_split(concatenated_lines, '\n');
 	if (!map->mapcopy)
-		ft_cleanup(cub3d, "Error:\nMalloc failed\n", EXIT_FAILURE);
+		ft_cleanup(cub3d, "Error\nMalloc failed\n", EXIT_FAILURE);
 	ft_fill_map_spaces(cub3d, map->m_arr);
 	ft_fill_map_spaces(cub3d, map->mapcopy);
+	if (map->width == 0 && map->height == 0)
+		ft_cleanup(cub3d, "Error\nNo map\n", EXIT_FAILURE);
 	if (map->width > map->height)
 		map->scale = MAP_SIZE / map->width;
 	else
